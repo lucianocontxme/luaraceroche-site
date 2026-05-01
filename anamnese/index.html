@@ -445,7 +445,7 @@
 <!-- AUTH CHECK -->
 <script>
   // ⚠️ SUBSTITUA PELA URL DO SEU APPS SCRIPT APÓS IMPLANTAR
-  const APPS_SCRIPT_URL = 'APPS_SCRIPT_URL';
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwtu7HYWC-GSdsgE7h2PTVY91Vffn_tjPoQ9WFXIGOA2jhORVYfGua_z5g3yLuWVMthyA/exec';
 
   // Verifica se há email na sessão
   const _email = sessionStorage.getItem('anamnese_email');
@@ -1121,11 +1121,4 @@
         btn.disabled = false;
       }
     } catch (err) {
-      showToast('❌ Erro de conexão. Verifique sua internet e tente novamente.', 'error');
-      btn.disabled = false;
-    }
-  }
-</script>
-
-</body>
-</html>
+      showToast('❌ Erro de conexão. Verifique sua intern

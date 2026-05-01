@@ -731,7 +731,7 @@
 
 <script>
   // ⚠️ SUBSTITUA PELA URL DO SEU APPS SCRIPT APÓS IMPLANTAR
-  const APPS_SCRIPT_URL = 'APPS_SCRIPT_URL';
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwtu7HYWC-GSdsgE7h2PTVY91Vffn_tjPoQ9WFXIGOA2jhORVYfGua_z5g3yLuWVMthyA/exec';
 
   // ⚠️ Senha do painel — troque se quiser
   const ADMIN_SENHA = 'Luara@2026';
@@ -1054,13 +1054,4 @@
         toast('✓ Acesso reativado.');
         await carregarEmails();
       } else {
-        toast('Erro: ' + result.error);
-      }
-    } catch {
-      toast('Erro de conexão.');
-    }
-  }
-</script>
-
-</body>
-</html>
+        toast('Erro: ' + result.er

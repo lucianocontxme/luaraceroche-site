@@ -242,7 +242,7 @@
 
 <script>
   // ⚠️ SUBSTITUA PELA URL DO SEU APPS SCRIPT APÓS IMPLANTAR
-  const APPS_SCRIPT_URL = 'APPS_SCRIPT_URL';
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwtu7HYWC-GSdsgE7h2PTVY91Vffn_tjPoQ9WFXIGOA2jhORVYfGua_z5g3yLuWVMthyA/exec';
 
   const emailInput = document.getElementById('email');
   const btn = document.getElementById('btn-entrar');
@@ -309,13 +309,4 @@
     } catch (err) {
       showMsg(
         '<strong>Erro de conexão.</strong><br>' +
-        'Não foi possível verificar seu acesso. Por favor, tente novamente.',
-        'error'
-      );
-      btn.disabled = false;
-    }
-  }
-</script>
-
-</body>
-</html>
+        'Não foi possível verificar seu acesso. Por favor, tente nova
