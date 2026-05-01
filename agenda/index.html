@@ -38,7 +38,9 @@ body{font-family:'Nunito',sans-serif;background:var(--beige2);color:var(--marrom
 /* CARD */
 .card{background:var(--branco);border-radius:20px;padding:24px;margin-bottom:16px;box-shadow:0 4px 20px rgba(92,46,20,.06);}
 .card-title{font-family:'Playfair Display',serif;font-size:20px;color:var(--marrom);margin-bottom:6px;}
-.card-sub{font-size:13px;color:var(--cinza);margin-bottom:20px;line-height:1.5;}
+.card-sub{font-size:13px;color:var(--cinza);margin-bottom:12px;line-height:1.5;}
+.price-badge{display:inline-block;background:#FFF5EE;border:1.5px solid #E8C4A0;border-radius:100px;padding:7px 16px;font-size:13px;color:var(--terra);margin-bottom:20px;}
+.price-badge strong{font-weight:700;}
 
 /* MODALIDADE */
 .mod-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:0;}
@@ -161,6 +163,7 @@ body{font-family:'Nunito',sans-serif;background:var(--beige2);color:var(--marrom
     <div class="tag">Primeira consulta · Entrevista Motivacional</div>
     <div class="card-title">Como prefere ser atendida?</div>
     <div class="card-sub">Escolha a modalidade que funciona melhor para você. O valor é o mesmo para ambas.</div>
+    <div class="price-badge">Primeira consulta (avaliação inicial) · <strong>R$ 157,00</strong></div>
     <div class="mod-grid">
       <div class="mod-btn" id="mod-online" onclick="selectMod('online')">
         <div class="mod-icon">💻</div>
