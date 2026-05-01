@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Acesso — Luara Ceroche</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --terra: #A0522D;
+    --terra-light: #C4784A;
+    --beige: #F5EDE3;
+    --beige-dark: #EDD9C4;
+    --brown-deep: #3D1F0D;
+    --warm-white: #FDF8F3;
+    --sand: #D4A574;
+    --text: #2C1A0E;
+    --muted: #8A6A55;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--warm-white);
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  .card {
+    background: white;
+    border-radius: 20px;
+    padding: 48px 40px;
+    max-width: 420px;
+    width: 100%;
+    box-shadow: 0 8px 40px rgba(61, 31, 13, 0.10);
+    text-align: center;
+  }
+
+  .logo-line {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 6px;
+    color: var(--sand);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .card h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    font-weight: 300;
+    color: var(--brown-deep);
+    line-height: 1.2;
+    margin-bottom: 6px;
+  }
+
+  .card h1 em {
+    font-style: italic;
+    color: var(--terra);
+  }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 18px 0 24px;
+  }
+
+  .divider span {
+    display: block;
+    width: 40px;
+    height: 1px;
+    background: var(--sand);
+    opacity: 0.5;
+  }
+
+  .divider i {
+    color: var(--sand);
+    font-size: 10px;
+    font-style: normal;
+  }
+
+  .intro {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.65;
+    margin-bottom: 28px;
+  }
+
+  label {
+    display: block;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--brown-deep);
+    text-align: left;
+    margin-bottom: 6px;
+    letter-spacing: 0.3px;
+  }
+
+  input[type="email"] {
+    width: 100%;
+    background: var(--warm-white);
+    border: 1.5px solid var(--beige-dark);
+    border-radius: 10px;
+    padding: 13px 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    color: var(--text);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    -webkit-appearance: none;
+    outline: none;
+  }
+
+  input[type="email"]:focus {
+    border-color: var(--terra);
+    box-shadow: 0 0 0 3px rgba(160, 82, 45, 0.10);
+  }
+
+  .btn {
+    width: 100%;
+    margin-top: 20px;
+    background: var(--terra);
+    color: white;
+    border: none;
+    padding: 14px 20px;
+    border-radius: 30px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    letter-spacing: 0.4px;
+    transition: background 0.2s, transform 0.15s;
+    box-shadow: 0 4px 14px rgba(160, 82, 45, 0.28);
+  }
+
+  .btn:hover:not(:disabled) {
+    background: var(--terra-light);
+    transform: translateY(-1px);
+  }
+
+  .btn:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  /* Mensagem de erro / aviso */
+  .msg {
+    display: none;
+    margin-top: 16px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 13px;
+    line-height: 1.5;
+    text-align: left;
+  }
+
+  .msg.error {
+    background: #FFF0EB;
+    border: 1px solid #F5C4AD;
+    color: #8B3A1A;
+  }
+
+  .msg.loading {
+    background: var(--beige);
+    border: 1px solid var(--beige-dark);
+    color: var(--muted);
+    text-align: center;
+  }
+
+  .spinner {
+    display: inline-block;
+    width: 14px; height: 14px;
+    border: 2px solid var(--sand);
+    border-top-color: var(--terra);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    vertical-align: middle;
+    margin-right: 8px;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .footer-note {
+    margin-top: 28px;
+    font-size: 11px;
+    color: var(--muted);
+    opacity: 0.7;
+    letter-spacing: 0.5px;
+  }
+
+  .back-link {
+    display: inline-block;
+    margin-top: 16px;
+    font-size: 12px;
+    color: var(--muted);
+    text-decoration: none;
+    opacity: 0.7;
+  }
+
+  .back-link:hover { opacity: 1; text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="logo-line">Luara Ceroche · Terapeuta Nutricional</div>
+  <h1>Formulário de <em>Anamnese</em></h1>
+  <div class="divider"><span></span><i>✦</i><span></span></div>
+
+  <p class="intro">
+    Para acessar o formulário, informe o e-mail que<br>
+    Luara cadastrou para você.
+  </p>
+
+  <label for="email">Seu e-mail</label>
+  <input
+    type="email"
+    id="email"
+    placeholder="seuemail@exemplo.com"
+    autocomplete="email"
+    autofocus
+  >
+
+  <button class="btn" id="btn-entrar" onclick="verificarEmail()">
+    Continuar →
+  </button>
+
+  <div class="msg" id="msg"></div>
+
+  <p class="footer-note">Acesso restrito a pacientes autorizadas pela Luara.</p>
+  <a class="back-link" href="/">← Voltar ao site</a>
+</div>
+
+<script>
+  // ⚠️ SUBSTITUA PELA URL DO SEU APPS SCRIPT APÓS IMPLANTAR
+  const APPS_SCRIPT_URL = 'APPS_SCRIPT_URL';
+
+  const emailInput = document.getElementById('email');
+  const btn = document.getElementById('btn-entrar');
+  const msgEl = document.getElementById('msg');
+
+  // Permite enviar com Enter
+  emailInput.addEventListener('keydown', e => {
+    if (e.key === 'Enter') verificarEmail();
+  });
+
+  function showMsg(text, type) {
+    msgEl.className = 'msg ' + type;
+    msgEl.innerHTML = text;
+    msgEl.style.display = 'block';
+  }
+
+  function hideMsg() {
+    msgEl.style.display = 'none';
+  }
+
+  async function verificarEmail() {
+    const email = emailInput.value.trim().toLowerCase();
+
+    if (!email) {
+      showMsg('Por favor, informe o seu e-mail.', 'error');
+      emailInput.focus();
+      return;
+    }
+
+    // Validação básica
+    if (!email.includes('@') || !email.includes('.')) {
+      showMsg('Por favor, informe um e-mail válido.', 'error');
+      emailInput.focus();
+      return;
+    }
+
+    // Loading
+    btn.disabled = true;
+    showMsg('<span class="spinner"></span>Verificando acesso…', 'loading');
+
+    try {
+      const url = APPS_SCRIPT_URL + '?action=checkEmail&email=' + encodeURIComponent(email);
+      const resp = await fetch(url);
+      const data = await resp.json();
+
+      if (data.authorized) {
+        // Salva email na sessão e redireciona para o formulário
+        sessionStorage.setItem('anamnese_email', email);
+        sessionStorage.setItem('anamnese_nome', data.nome || '');
+        showMsg('✓ Acesso liberado! Redirecionando…', 'loading');
+        setTimeout(() => {
+          window.location.href = '/anamnese/';
+        }, 800);
+      } else {
+        showMsg(
+          '<strong>E-mail não encontrado.</strong><br>' +
+          'Verifique se digitou corretamente ou entre em contato com a Luara para solicitar seu acesso.',
+          'error'
+        );
+        btn.disabled = false;
+        emailInput.focus();
+      }
+
+    } catch (err) {
+      showMsg(
+        '<strong>Erro de conexão.</strong><br>' +
+        'Não foi possível verificar seu acesso. Por favor, tente novamente.',
+        'error'
+      );
+      btn.disabled = false;
+    }
+  }
+</script>
+
+</body>
+</html>

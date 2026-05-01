@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formulário de Anamnese – Luara Ceroche</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --terra: #A0522D;
+    --terra-light: #C4784A;
+    --beige: #F5EDE3;
+    --beige-dark: #EDD9C4;
+    --brown-deep: #3D1F0D;
+    --warm-white: #FDF8F3;
+    --sand: #D4A574;
+    --text: #2C1A0E;
+    --muted: #8A6A55;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--warm-white);
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--brown-deep);
+    padding: 48px 32px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -60px; left: -60px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: rgba(164, 84, 42, 0.18);
+  }
+
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; right: -40px;
+    width: 260px; height: 260px;
+    border-radius: 50%;
+    background: rgba(212, 165, 116, 0.12);
+  }
+
+  .header-inner { position: relative; z-index: 1; }
+
+  .logo-line {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 6px;
+    color: var(--sand);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .header h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 6vw, 44px);
+    font-weight: 300;
+    color: var(--beige);
+    line-height: 1.15;
+    margin-bottom: 8px;
+  }
+
+  .header h1 em {
+    font-style: italic;
+    color: var(--sand);
+  }
+
+  .header-sub {
+    font-size: 13px;
+    color: rgba(245, 237, 227, 0.6);
+    letter-spacing: 1px;
+    margin-top: 16px;
+  }
+
+  .divider-ornament {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 20px 0 0;
+  }
+
+  .divider-ornament span {
+    display: block;
+    width: 60px;
+    height: 1px;
+    background: var(--sand);
+    opacity: 0.5;
+  }
+
+  .divider-ornament i {
+    color: var(--sand);
+    font-size: 10px;
+    font-style: normal;
+    opacity: 0.7;
+  }
+
+  /* INTRO BOX */
+  .intro-box {
+    background: var(--beige);
+    border-left: 3px solid var(--terra);
+    margin: 32px auto;
+    max-width: 720px;
+    padding: 20px 24px;
+    border-radius: 0 8px 8px 0;
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--muted);
+  }
+
+  .intro-box strong { color: var(--terra); }
+
+  /* FORM WRAPPER */
+  .form-wrapper {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 20px 60px;
+  }
+
+  /* SECTION */
+  .section {
+    margin-bottom: 40px;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--beige-dark);
+  }
+
+  .section-number {
+    background: var(--terra);
+    color: white;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 500;
+    flex-shrink: 0;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--brown-deep);
+    letter-spacing: 0.3px;
+  }
+
+  /* FIELD */
+  .field { margin-bottom: 18px; }
+
+  label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--brown-deep);
+    margin-bottom: 7px;
+    line-height: 1.4;
+  }
+
+  label .req { color: var(--terra); margin-left: 2px; }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="date"],
+  input[type="number"],
+  select,
+  textarea {
+    width: 100%;
+    background: white;
+    border: 1.5px solid var(--beige-dark);
+    border-radius: 8px;
+    padding: 11px 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    -webkit-appearance: none;
+  }
+
+  input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--terra);
+    box-shadow: 0 0 0 3px rgba(160, 82, 45, 0.1);
+  }
+
+  textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
+
+  select {
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%23A0522D' d='M0 0l5 6 5-6z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 36px;
+  }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+
+  @media (max-width: 520px) {
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  }
+
+  /* RADIO / CHECKBOX */
+  .options-group { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+
+  .option-chip { position: relative; }
+
+  .option-chip input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .option-chip label {
+    display: inline-block;
+    padding: 7px 14px;
+    border: 1.5px solid var(--beige-dark);
+    border-radius: 20px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--muted);
+    margin: 0;
+    background: white;
+  }
+
+  .option-chip input:checked + label {
+    background: var(--terra);
+    border-color: var(--terra);
+    color: white;
+  }
+
+  /* SCALE */
+  .scale-row {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 6px;
+  }
+
+  .scale-btn {
+    width: 36px; height: 36px;
+    border: 1.5px solid var(--beige-dark);
+    border-radius: 6px;
+    background: white;
+    cursor: pointer;
+    font-size: 13px;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--muted);
+    transition: all 0.15s;
+  }
+
+  .scale-btn:hover { border-color: var(--terra); color: var(--terra); }
+  .scale-btn.selected { background: var(--terra); border-color: var(--terra); color: white; }
+
+  .scale-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  /* WEIGHT TABLE */
+  .weight-table {
+    background: var(--beige);
+    border-radius: 10px;
+    padding: 16px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  /* HIGHLIGHT BOX */
+  .highlight-box {
+    background: linear-gradient(135deg, var(--beige) 0%, var(--beige-dark) 100%);
+    border-radius: 10px;
+    padding: 16px 18px;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 18px;
+  }
+
+  .highlight-box strong {
+    color: var(--terra);
+    display: block;
+    margin-bottom: 4px;
+    font-size: 14px;
+  }
+
+  /* SUBMIT */
+  .submit-area {
+    text-align: center;
+    margin-top: 40px;
+    padding: 32px;
+    background: var(--beige);
+    border-radius: 16px;
+  }
+
+  .submit-area p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px;
+    font-style: italic;
+    color: var(--muted);
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+
+  .btn-submit {
+    background: var(--terra);
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    border-radius: 30px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    transition: background 0.2s, transform 0.15s;
+    box-shadow: 0 4px 14px rgba(160, 82, 45, 0.3);
+  }
+
+  .btn-submit:hover:not(:disabled) {
+    background: var(--terra-light);
+    transform: translateY(-1px);
+  }
+
+  .btn-submit:disabled { opacity: 0.65; cursor: not-allowed; transform: none; }
+
+  /* Toast / Status */
+  .toast {
+    display: none;
+    margin-top: 20px;
+    padding: 14px 18px;
+    border-radius: 10px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .toast.success {
+    background: #EDF7ED;
+    border: 1px solid #A8D5A8;
+    color: #2E6B2E;
+  }
+
+  .toast.error {
+    background: #FFF0EB;
+    border: 1px solid #F5C4AD;
+    color: #8B3A1A;
+  }
+
+  .toast.loading {
+    background: var(--beige);
+    border: 1px solid var(--beige-dark);
+    color: var(--muted);
+  }
+
+  .spinner {
+    display: inline-block;
+    width: 14px; height: 14px;
+    border: 2px solid var(--sand);
+    border-top-color: var(--terra);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    vertical-align: middle;
+    margin-right: 8px;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* SUCCESS SCREEN */
+  .success-screen {
+    display: none;
+    text-align: center;
+    padding: 60px 20px;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .success-icon {
+    font-size: 56px;
+    margin-bottom: 20px;
+  }
+
+  .success-screen h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    font-weight: 300;
+    color: var(--brown-deep);
+    margin-bottom: 12px;
+  }
+
+  .success-screen p {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    padding: 24px;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    opacity: 0.7;
+  }
+</style>
+</head>
+<body>
+
+<!-- AUTH CHECK -->
+<script>
+  // ⚠️ SUBSTITUA PELA URL DO SEU APPS SCRIPT APÓS IMPLANTAR
+  const APPS_SCRIPT_URL = 'APPS_SCRIPT_URL';
+
+  // Verifica se há email na sessão
+  const _email = sessionStorage.getItem('anamnese_email');
+  const _nome  = sessionStorage.getItem('anamnese_nome');
+
+  if (!_email) {
+    // Sem email na sessão → redireciona para login
+    window.location.replace('/anamnese/login.html');
+  }
+</script>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="logo-line">Luara Ceroche · Terapeuta Nutricional</div>
+    <h1>Formulário de <em>Anamnese</em></h1>
+    <div class="divider-ornament">
+      <span></span><i>✦</i><span></span>
+    </div>
+    <p class="header-sub">Preencha com carinho antes da nossa primeira sessão</p>
+  </div>
+</div>
+
+<!-- TELA DE SUCESSO -->
+<div class="success-screen" id="success-screen">
+  <div class="success-icon">🌿</div>
+  <h2>Obrigada, <span id="nome-sucesso"></span>!</h2>
+  <p>Seu formulário foi enviado com sucesso.<br>
+  Luara analisará suas respostas e entrará em contato para confirmar o horário da nossa sessão. 💛</p>
+</div>
+
+<!-- FORMULÁRIO -->
+<div id="form-content">
+
+<div class="form-wrapper">
+
+  <div class="intro-box">
+    <strong>Olá<span id="intro-nome"></span>! Que bom ter você aqui. 🌿</strong>
+    Este formulário me ajuda a chegar preparada para a nossa primeira conversa. Não existe resposta certa ou errada — quanto mais honesta você for, mais profundo e personalizado será o nosso trabalho juntas. Tudo que você compartilhar é <strong>confidencial</strong>.
+  </div>
+
+  <!-- SEÇÃO 1: DADOS PESSOAIS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">1</div>
+      <div class="section-title">Dados Pessoais</div>
+    </div>
+
+    <div class="grid-2">
+      <div class="field">
+        <label>Nome completo <span class="req">*</span></label>
+        <input type="text" id="nome_completo" placeholder="Seu nome">
+      </div>
+      <div class="field">
+        <label>Data de nascimento <span class="req">*</span></label>
+        <input type="date" id="data_nascimento">
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="field">
+        <label>WhatsApp <span class="req">*</span></label>
+        <input type="tel" id="whatsapp" placeholder="(xx) 9xxxx-xxxx">
+      </div>
+      <div class="field">
+        <label>E-mail</label>
+        <input type="email" id="email_display" readonly style="background:#f7f0e8;cursor:default;">
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="field">
+        <label>Profissão</label>
+        <input type="text" id="profissao" placeholder="Sua profissão">
+      </div>
+      <div class="field">
+        <label>Estado civil</label>
+        <select id="estado_civil">
+          <option value="">Selecione</option>
+          <option>Solteira</option>
+          <option>Casada / União estável</option>
+          <option>Divorciada / Separada</option>
+          <option>Viúva</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Cidade / Estado</label>
+      <input type="text" id="cidade_estado" placeholder="Ex: Macaé, RJ">
+    </div>
+
+    <div class="field">
+      <label>Quantas pessoas moram na sua casa?</label>
+      <div class="options-group" id="moradia-group">
+        <div class="option-chip"><input type="radio" name="moradia" id="m1" value="Sozinha"><label for="m1">Sozinha</label></div>
+        <div class="option-chip"><input type="radio" name="moradia" id="m2" value="Com parceiro(a)"><label for="m2">Com parceiro(a)</label></div>
+        <div class="option-chip"><input type="radio" name="moradia" id="m3" value="Com filhos"><label for="m3">Com filhos</label></div>
+        <div class="option-chip"><input type="radio" name="moradia" id="m4" value="Com pais / família"><label for="m4">Com pais / família</label></div>
+        <div class="option-chip"><input type="radio" name="moradia" id="m5" value="Com amigos / colegas"><label for="m5">Com amigos / colegas</label></div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Como você me encontrou?</label>
+      <div class="options-group">
+        <div class="option-chip"><input type="radio" name="encontrou" id="e1" value="Instagram"><label for="e1">Instagram</label></div>
+        <div class="option-chip"><input type="radio" name="encontrou" id="e2" value="Indicação de amiga/familiar"><label for="e2">Indicação de amiga/familiar</label></div>
+        <div class="option-chip"><input type="radio" name="encontrou" id="e3" value="Indicação de outro profissional"><label for="e3">Indicação de outro profissional</label></div>
+        <div class="option-chip"><input type="radio" name="encontrou" id="e4" value="Evento / Palestra"><label for="e4">Evento / Palestra</label></div>
+        <div class="option-chip"><input type="radio" name="encontrou" id="e5" value="Outro"><label for="e5">Outro</label></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEÇÃO 2: SAÚDE E HISTÓRICO -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">2</div>
+      <div class="section-title">Saúde & Histórico</div>
+    </div>
+
+    <div class="field">
+      <label>Histórico familiar de doenças crônicas</label>
+      <div class="options-group">
+        <div class="option-chip"><input type="checkbox" id="d1" value="Diabetes"><label for="d1">Diabetes</label></div>
+        <div class="option-chip"><input type="checkbox" id="d2" value="Hipertensão"><label for="d2">Hipertensão</label></div>
+        <div class="option-chip"><input type="checkbox" id="d3" value="Obesidade"><label for="d3">Obesidade</label></div>
+        <div class="option-chip"><input type="checkbox" id="d4" value="Doenças cardíacas"><label for="d4">Doenças cardíacas</label></div>
+        <div class="option-chip"><input type="checkbox" id="d5" value="Câncer"><label for="d5">Câncer</label></div>
+        <div class="option-chip"><input type="checkbox" id="d6" value="Não sei informar"><label for="d6">Não sei informar</label></div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Você tem ou teve algum diagnóstico clínico ou psiquiátrico? Se sim, quais?</label>
+      <textarea id="diagnostico" placeholder="Ex: ansiedade, hipotireoidismo, SOP, depressão... ou deixe em branco se não houver."></textarea>
+    </div>
+
+    <div class="field">
+      <label>Está tomando algum medicamento ou suplemento atualmente? Quais?</label>
+      <textarea id="medicamentos" placeholder="Nome, dose e motivo, se souber."></textarea>
+    </div>
+
+    <div class="field">
+      <label>Como está sua menstruação? (ciclo, irregularidades, TPM intensa, etc.)</label>
+      <textarea id="menstruacao" placeholder="Descreva como quiser..."></textarea>
+    </div>
+
+    <div class="field">
+      <label>Com que frequência seu intestino funciona?</label>
+      <div class="options-group">
+        <div class="option-chip"><input type="radio" name="intestino" id="i1" value="Diariamente"><label for="i1">Diariamente</label></div>
+        <div class="option-chip"><input type="radio" name="intestino" id="i2" value="A cada 2 dias"><label for="i2">A cada 2 dias</label></div>
+        <div class="option-chip"><input type="radio" name="intestino" id="i3" value="3x por semana ou menos"><label for="i3">3x por semana ou menos</label></div>
+        <div class="option-chip"><input type="radio" name="intestino" id="i4" value="Irregular / variável"><label for="i4">Irregular / variável</label></div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="field">
+        <label>Você fuma?</label>
+        <div class="options-group">
+          <div class="option-chip"><input type="radio" name="fuma" id="f1" value="Não"><label for="f1">Não</label></div>
+          <div class="option-chip"><input type="radio" name="fuma" id="f2" value="Sim, socialmente"><label for="f2">Sim, socialmente</label></div>
+          <div class="option-chip"><input type="radio" name="fuma" id="f3" value="Sim, diariamente"><label for="f3">Sim, diariamente</label></div>
+        </div>
+      </div>
+      <div class="field">
+        <label>Você bebe álcool?</label>
+        <div class="options-group">
+          <div class="option-chip"><input type="radio" name="alcool" id="a1" value="Não"><label for="a1">Não</label></div>
+          <div class="option-chip"><input type="radio" name="alcool" id="a2" value="Raramente"><label for="a2">Raramente</label></div>
+          <div class="option-chip"><input type="radio" name="alcool" id="a3" value="Fins de semana"><label for="a3">Fins de semana</label></div>
+          <div class="option-chip"><input type="radio" name="alcool" id="a4" value="Frequentemente"><label for="a4">Frequentemente</label></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Como está o seu sono? Quantas horas dorme em média?</label>
+      <textarea id="sono" placeholder="Ex: durmo bem, mas acordo cansada / tenho insônia / durmo cerca de 6h..."></textarea>
+    </div>
+
+    <div class="field">
+      <label>Você pratica atividade física? Qual, com que frequência e objetivo?</label>
+      <textarea id="atividade_fisica" placeholder="Ex: caminhada 3x/semana, academia com foco em emagrecimento..."></textarea>
+    </div>
+  </div>
+
+  <!-- SEÇÃO 3: MOTIVO DA CONSULTA -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">3</div>
+      <div class="section-title">Motivo da Consulta</div>
+    </div>
+
+    <div class="field">
+      <label>O que te trouxe até aqui? Qual é o principal motivo da sua vinda? <span class="req">*</span></label>
+      <textarea id="motivo_consulta" placeholder="Conta com suas palavras..."></textarea>
+    </div>
+
+    <div class="field">
+      <label>Algum fator de vida (positivo ou negativo) coincidiu com o início das suas dificuldades com a alimentação?</label>
+      <textarea id="fator_vida" placeholder="Ex: separação, gravidez, início de medicação, promoção no trabalho..."></textarea>
+    </div>
+
+    <div class="field">
+      <label>Hoje, quais são suas maiores dificuldades frente à alimentação? <span class="req">*</span></label>
+      <textarea id="dificuldades" placeholder="Pode listar ou escrever livremente..."></textarea>
+    </div>
+
+    <div class="field">
+      <label>O que você espera que mude na sua vida com o tratamento?</label>
+      <textarea id="expectativas" placeholder="Pense além do peso: como quer se sentir, como quer se relacionar com a comida..."></textarea>
+    </div>
+  </div>
+
+  <!-- SEÇÃO 4: COMPORTAMENTO ALIMENTAR -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">4</div>
+      <div class="section-title">Comportamento Alimentar</div>
+    </div>
+
+    <div class="grid-2">
+      <div class="field">
+        <label>Quantas refeições faz por dia?</label>
+        <select id="refeicoes_dia">
+          <option value="">Selecione</option>
+          <option>1 a 2</option>
+          <option>3</option>
+          <option>4 a 5</option>
+          <option>Mais de 5</option>
+          <option>Não tenho horário fixo</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Quanto tempo leva para fazer uma refeição?</label>
+        <select id="tempo_refeicao">
+          <option value="">Selecione</option>
+          <option>Menos de 10 min</option>
+          <option>10 a 20 min</option>
+          <option>20 a 30 min</option>
+          <option>Mais de 30 min</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Quantos copos de água toma por dia?</label>
+      <div class="options-group">
+        <div class="option-chip"><input type="radio" name="agua" id="ag1" value="Menos de 4"><label for="ag1">Menos de 4</label></div>
+        <div class="option-chip"><input type="radio" name="agua" id="ag2" value="4 a 6"><label for="ag2">4 a 6</label></div>
+        <div class="option-chip"><input type="radio" name="agua" id="ag3" value="7 a 8"><label for="ag3">7 a 8</label></div>
+        <div class="option-chip"><input type="radio" name="agua" id="ag4" value="Mais de 8"><label for="ag4">Mais de 8</label></div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Quais outros líquidos você costuma consumir?</label>
+      <div class="options-group">
+        <div class="option-chip"><input type="checkbox" id="liq1" value="Café"><label for="liq1">Café</label></div>
+        <div class="option-chip"><input type="checkbox" id="liq2" value="Chás"><label for="liq2">Chás</label></div>
+        <div class="option-chip"><input type="checkbox" id="liq3" value="Sucos industrializados"><label for="liq3">Sucos industrializados</label></div>
+        <div class="option-chip"><input type="checkbox" id="liq4" value="Refrigerantes"><label for="liq4">Refrigerantes</label></div>
+        <div class="option-chip"><input type="checkbox" id="liq5" value="Bebidas energéticas"><label for="liq5">Bebidas energéticas</label></div>
+        <div class="option-chip"><input type="checkbox" id="liq6" value="Leite / shakes"><label for="liq6">Leite / shakes</label></div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Você costuma comer por (pode marcar mais de um):</label>
+      <div class="options-group">
+        <div class="option-chip"><input type="checkbox" id="em1" value="Ansiedade"><label for="em1">Ansiedade</label></div>
+        <div class="option-chip"><input type="checkbox" id="em2" value="Tédio"><label for="em2">Tédio</label></div>
+        <div class="option-chip"><input type="checkbox" id="em3" value="Tristeza"><label for="em3">Tristeza</label></div>
+        <div class="option-chip"><input type="checkbox" id="em4" value="Estresse"><label for="em4">Estresse</label></div>
+        <div class="option-chip"><input type="checkbox" id="em5" value="Cansaço"><label for="em5">Cansaço</label></div>
+        <div class="option-chip"><input type="checkbox" id="em6" value="Raiva"><label for="em6">Raiva</label></div>
+        <div class="option-chip"><input type="checkbox" id="em7" value="Angústia"><label for="em7">Angústia</label></div>
+        <div class="option-chip"><input type="checkbox" id="em8" value="Felicidade / celebração"><label for="em8">Felicidade / celebração</label></div>
+        <div class="option-chip"><input type="checkbox" id="em9" value="Não como por emoção"><label for="em9">Não como por emoção</label></div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Marque os comportamentos que se aplicam a você:</label>
+      <div class="options-group">
+        <div class="option-chip"><input type="checkbox" id="c1" value="Pulo refeições"><label for="c1">Pulo refeições</label></div>
+        <div class="option-chip"><input type="checkbox" id="c2" value="Como mais do que deveria"><label for="c2">Como mais do que deveria</label></div>
+        <div class="option-chip"><input type="checkbox" id="c3" value="Belisco o dia todo"><label for="c3">Belisco o dia todo</label></div>
+        <div class="option-chip"><input type="checkbox" id="c4" value="Como sozinha"><label for="c4">Como sozinha</label></div>
+        <div class="option-chip"><input type="checkbox" id="c5" value="Como no carro"><label for="c5">Como no carro</label></div>
+        <div class="option-chip"><input type="checkbox" id="c6" value="Como em frente à TV / celular"><label for="c6">Como em frente à TV / celular</label></div>
+        <div class="option-chip"><input type="checkbox" id="c7" value="Como rápido demais"><label for="c7">Como rápido demais</label></div>
+        <div class="option-chip"><input type="checkbox" id="c8" value="Excluo grupos alimentares"><label for="c8">Excluo grupos alimentares</label></div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Você já fez algum tipo de dieta?</label>
+      <div class="options-group">
+        <div class="option-chip"><input type="radio" name="ja_fez_dieta" id="dt1" value="Sim"><label for="dt1">Sim</label></div>
+        <div class="option-chip"><input type="radio" name="ja_fez_dieta" id="dt2" value="Não"><label for="dt2">Não</label></div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Se sim, quais tipos de dieta você já tentou?</label>
+      <div class="options-group">
+        <div class="option-chip"><input type="checkbox" id="tp1" value="Low carb / cetogênica"><label for="tp1">Low carb / cetogênica</label></div>
+        <div class="option-chip"><input type="checkbox" id="tp2" value="Detox / jejum"><label for="tp2">Detox / jejum</label></div>
+        <div class="option-chip"><input type="checkbox" id="tp3" value="Contagem de calorias"><label for="tp3">Contagem de calorias</label></div>
+        <div class="option-chip"><input type="checkbox" id="tp4" value="Dieta da nutricionista"><label for="tp4">Dieta da nutricionista</label></div>
+        <div class="option-chip"><input type="checkbox" id="tp5" value="Dieta por conta própria"><label for="tp5">Dieta por conta própria</label></div>
+        <div class="option-chip"><input type="checkbox" id="tp6" value="Não se aplica"><label for="tp6">Não se aplica</label></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEÇÃO 5: RELAÇÃO EMOCIONAL COM A COMIDA -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">5</div>
+      <div class="section-title">Relação Emocional com a Comida</div>
+    </div>
+
+    <div class="field">
+      <label>Como você descreveria sua relação com a comida hoje?</label>
+      <textarea id="relacao_comida" placeholder="Pode usar palavras soltas ou escrever livremente: prazerosa, culpada, confusa, controladora..."></textarea>
+    </div>
+
+    <div class="field">
+      <label>Existe algum alimento que você sente que não consegue controlar? Quais?</label>
+      <textarea id="alimento_descontrolado" placeholder="Ex: doces à noite, pão, fast food..."></textarea>
+    </div>
+
+    <div class="field">
+      <label>Como você se sente após comer algo que considera "proibido"?</label>
+      <div class="options-group">
+        <div class="option-chip"><input type="checkbox" id="ap1" value="Culpa intensa"><label for="ap1">Culpa intensa</label></div>
+        <div class="option-chip"><input type="checkbox" id="ap2" value="Vergonha"><label for="ap2">Vergonha</label></div>
+        <div class="option-chip"><input type="checkbox" id="ap3" value="Vontade de compensar"><label for="ap3">Vontade de compensar</label></div>
+        <div class="option-chip"><input type="checkbox" id="ap4" value="Indiferença"><label for="ap4">Indiferença</label></div>
+        <div class="option-chip"><input type="checkbox" id="ap5" value="Não tenho alimentos proibidos"><label for="ap5">Não tenho alimentos proibidos</label></div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Com que frequência você pensa em comida, dieta ou peso durante o dia?</label>
+      <div class="options-group">
+        <div class="option-chip"><input type="radio" name="pensamento" id="p1" value="Raramente"><label for="p1">Raramente</label></div>
+        <div class="option-chip"><input type="radio" name="pensamento" id="p2" value="Às vezes"><label for="p2">Às vezes</label></div>
+        <div class="option-chip"><input type="radio" name="pensamento" id="p3" value="Frequentemente"><label for="p3">Frequentemente</label></div>
+        <div class="option-chip"><input type="radio" name="pensamento" id="p4" value="A maior parte do tempo"><label for="p4">A maior parte do tempo</label></div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Você já teve experiências com outros profissionais de saúde sobre alimentação? Como foi?</label>
+      <textarea id="experiencia_profissionais" placeholder="Nutricionista, endocrinologista, psicólogo... o que funcionou ou não funcionou?"></textarea>
+    </div>
+  </div>
+
+  <!-- SEÇÃO 6: INJEÇÕES EMAGRECEDORAS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">6</div>
+      <div class="section-title">Injeções Emagrecedoras</div>
+    </div>
+
+    <div class="highlight-box">
+      <strong>🌿 Um espaço seguro para falar sobre isso</strong>
+      Aqui não existe julgamento. Quero entender sua jornada para oferecer um suporte completo e personalizado.
+    </div>
+
+    <div class="field">
+      <label>Você usa ou já usou alguma injeção emagrecedora (semaglutida, liraglutida, tirzepatida, etc.)?</label>
+      <div class="options-group">
+        <div class="option-chip"><input type="radio" name="usa_injecao" id="inj1" value="Não uso e não considero"><label for="inj1">Não uso e não considero</label></div>
+        <div class="option-chip"><input type="radio" name="usa_injecao" id="inj2" value="Estou considerando"><label for="inj2">Estou considerando</label></div>
+        <div class="option-chip"><input type="radio" name="usa_injecao" id="inj3" value="Sim, atualmente em uso"><label for="inj3">Sim, atualmente em uso</label></div>
+        <div class="option-chip"><input type="radio" name="usa_injecao" id="inj4" value="Já usei, parei"><label for="inj4">Já usei, parei</label></div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Se usa ou já usou, qual medicamento, há quanto tempo e qual a dose atual?</label>
+      <textarea id="qual_injecao" placeholder="Ex: Ozempic 0,5mg há 3 meses..."></textarea>
+    </div>
+
+    <div class="field">
+      <label>Quais efeitos (físicos ou emocionais) você percebeu desde o início do uso?</label>
+      <div class="options-group">
+        <div class="option-chip"><input type="checkbox" id="ef1" value="Perda de apetite"><label for="ef1">Perda de apetite</label></div>
+        <div class="option-chip"><input type="checkbox" id="ef2" value="Náusea / enjoo"><label for="ef2">Náusea / enjoo</label></div>
+        <div class="option-chip"><input type="checkbox" id="ef3" value="Emagrecimento rápido"><label for="ef3">Emagrecimento rápido</label></div>
+        <div class="option-chip"><input type="checkbox" id="ef4" value="Ansiedade em relação à comida"><label for="ef4">Ansiedade em relação à comida</label></div>
+        <div class="option-chip"><input type="checkbox" id="ef5" value="Medo de parar o remédio"><label for="ef5">Medo de parar o remédio</label></div>
+        <div class="option-chip"><input type="checkbox" id="ef6" value="Melhora no humor"><label for="ef6">Melhora no humor</label></div>
+        <div class="option-chip"><input type="checkbox" id="ef7" value="Não se aplica"><label for="ef7">Não se aplica</label></div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Como você se sente emocionalmente em relação ao uso (ou possível uso) da injeção?</label>
+      <textarea id="emocional_injecao" placeholder="Aliviada, insegura, culpada, esperançosa... pode falar livremente."></textarea>
+    </div>
+  </div>
+
+  <!-- SEÇÃO 7: HISTÓRICO DE PESO E CORPO -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">7</div>
+      <div class="section-title">Histórico de Peso & Corpo</div>
+    </div>
+
+    <div class="weight-table">
+      <div class="field">
+        <label>Altura atual</label>
+        <input type="text" id="altura_atual" placeholder="Ex: 1,65m">
+      </div>
+      <div class="field">
+        <label>Peso atual</label>
+        <input type="text" id="peso_atual" placeholder="Ex: 72 kg">
+      </div>
+      <div class="field">
+        <label>Peso máximo que já teve</label>
+        <input type="text" id="peso_maximo" placeholder="Ex: 85 kg">
+      </div>
+      <div class="field">
+        <label>Peso mínimo que já teve</label>
+        <input type="text" id="peso_minimo" placeholder="Ex: 58 kg">
+      </div>
+      <div class="field">
+        <label>Peso desejado</label>
+        <input type="text" id="peso_desejado" placeholder="Ex: 65 kg">
+      </div>
+      <div class="field">
+        <label>Com que frequência você se pesa?</label>
+        <select id="frequencia_peso">
+          <option value="">Selecione</option>
+          <option>Todo dia</option>
+          <option>Algumas vezes por semana</option>
+          <option>Uma vez por semana</option>
+          <option>Uma vez por mês ou menos</option>
+          <option>Evito me pesar</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field" style="margin-top:16px">
+      <label>Você perdeu muito peso rapidamente recentemente? Como foi?</label>
+      <textarea id="perda_peso_recente" placeholder="Período, quanto perdeu, contexto..."></textarea>
+    </div>
+
+    <div class="field">
+      <label>Como você se sente no seu corpo hoje?</label>
+      <textarea id="sensacao_corpo" placeholder="Pode falar sobre imagem corporal, partes do corpo que quer mudar e o porquê..."></textarea>
+    </div>
+  </div>
+
+  <!-- SEÇÃO 8: MOTIVAÇÃO E EXPECTATIVAS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">8</div>
+      <div class="section-title">Motivação & Expectativas</div>
+    </div>
+
+    <div class="field">
+      <label>Por que agora? O que te motivou a buscar ajuda neste momento?</label>
+      <textarea id="por_que_agora" placeholder="Pode ser um evento, uma sensação, uma decisão..."></textarea>
+    </div>
+
+    <div class="field">
+      <label>De 0 a 10, o quanto você está pronta para fazer mudanças nos seus hábitos?</label>
+      <div class="scale-row" id="scale-prontidao"></div>
+      <div class="scale-labels">
+        <span>0 — nada pronta</span>
+        <span>10 — totalmente pronta</span>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>De 0 a 10, o quanto você acredita que consegue mudar sua relação com a comida?</label>
+      <div class="scale-row" id="scale-crenca"></div>
+      <div class="scale-labels">
+        <span>0 — não acredito</span>
+        <span>10 — tenho plena confiança</span>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Há algo mais que você gostaria que eu soubesse antes da nossa conversa?</label>
+      <textarea id="observacoes_finais" placeholder="Espaço livre para o que quiser compartilhar..."></textarea>
+    </div>
+  </div>
+
+  <!-- SUBMIT -->
+  <div class="submit-area">
+    <p>"Cada resposta honesta aqui é o primeiro passo<br>de um caminho de cuidado genuíno."</p>
+    <button class="btn-submit" id="btn-submit" type="button" onclick="enviarFormulario()">
+      Enviar Formulário
+    </button>
+    <div class="toast" id="toast"></div>
+  </div>
+
+</div>
+</div><!-- /form-content -->
+
+<div class="footer">
+  © Luara Ceroche · Terapeuta Nutricional · @luaraceroche
+</div>
+
+<script>
+  // ---- Escala de 0 a 10 ----
+  let scaleProntidao = null;
+  let scaleCrenca = null;
+
+  function criarEscala(containerId, varRef) {
+    const container = document.getElementById(containerId);
+    for (let i = 0; i <= 10; i++) {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'scale-btn';
+      btn.textContent = i;
+      btn.dataset.value = i;
+      btn.addEventListener('click', function() {
+        container.querySelectorAll('.scale-btn').forEach(b => b.classList.remove('selected'));
+        this.classList.add('selected');
+      });
+      container.appendChild(btn);
+    }
+  }
+
+  function getScaleValue(containerId) {
+    const selected = document.querySelector('#' + containerId + ' .scale-btn.selected');
+    return selected ? selected.dataset.value : '';
+  }
+
+  function getCheckedValues(name) {
+    return Array.from(document.querySelectorAll('input[name="' + name + '"]:checked'))
+      .map(el => el.value).join(', ');
+  }
+
+  function getCheckboxValues(ids) {
+    return ids.filter(id => {
+      const el = document.getElementById(id);
+      return el && el.checked;
+    }).map(id => document.getElementById(id).value).join(', ');
+  }
+
+  function showToast(text, type) {
+    const t = document.getElementById('toast');
+    t.className = 'toast ' + type;
+    t.innerHTML = text;
+    t.style.display = 'block';
+    t.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  // ---- Pre-fill email e saudação ----
+  document.addEventListener('DOMContentLoaded', () => {
+    criarEscala('scale-prontidao');
+    criarEscala('scale-crenca');
+
+    const email = sessionStorage.getItem('anamnese_email') || '';
+    const nome = sessionStorage.getItem('anamnese_nome') || '';
+
+    document.getElementById('email_display').value = email;
+
+    if (nome) {
+      document.getElementById('intro-nome').textContent = ', ' + nome.split(' ')[0];
+      document.getElementById('nome-sucesso').textContent = nome.split(' ')[0];
+    } else {
+      document.getElementById('nome-sucesso').textContent = '';
+    }
+  });
+
+  // ---- Envio do formulário ----
+  async function enviarFormulario() {
+    const btn = document.getElementById('btn-submit');
+
+    // Validações obrigatórias
+    const nome = document.getElementById('nome_completo').value.trim();
+    const dataNasc = document.getElementById('data_nascimento').value.trim();
+    const whatsapp = document.getElementById('whatsapp').value.trim();
+    const motivo = document.getElementById('motivo_consulta').value.trim();
+    const dificuldades = document.getElementById('dificuldades').value.trim();
+
+    if (!nome) { showToast('⚠️ Por favor, informe seu <strong>nome completo</strong>.', 'error'); document.getElementById('nome_completo').focus(); return; }
+    if (!dataNasc) { showToast('⚠️ Por favor, informe sua <strong>data de nascimento</strong>.', 'error'); document.getElementById('data_nascimento').focus(); return; }
+    if (!whatsapp) { showToast('⚠️ Por favor, informe seu <strong>WhatsApp</strong>.', 'error'); document.getElementById('whatsapp').focus(); return; }
+    if (!motivo) { showToast('⚠️ Por favor, preencha o <strong>motivo da consulta</strong>.', 'error'); document.getElementById('motivo_consulta').focus(); return; }
+    if (!dificuldades) { showToast('⚠️ Por favor, preencha o campo <strong>maiores dificuldades</strong>.', 'error'); document.getElementById('dificuldades').focus(); return; }
+
+    btn.disabled = true;
+    showToast('<span class="spinner"></span>Enviando seu formulário…', 'loading');
+
+    const dados = {
+      action: 'submitAnamnese',
+      email: sessionStorage.getItem('anamnese_email') || '',
+      nome_completo: nome,
+      data_nascimento: dataNasc,
+      whatsapp: whatsapp,
+      profissao: document.getElementById('profissao').value.trim(),
+      estado_civil: document.getElementById('estado_civil').value,
+      cidade_estado: document.getElementById('cidade_estado').value.trim(),
+      moradia: getCheckedValues('moradia'),
+      como_encontrou: getCheckedValues('encontrou'),
+      historico_familiar: getCheckboxValues(['d1','d2','d3','d4','d5','d6']),
+      diagnostico: document.getElementById('diagnostico').value.trim(),
+      medicamentos: document.getElementById('medicamentos').value.trim(),
+      menstruacao: document.getElementById('menstruacao').value.trim(),
+      intestino: getCheckedValues('intestino'),
+      fuma: getCheckedValues('fuma'),
+      alcool: getCheckedValues('alcool'),
+      sono: document.getElementById('sono').value.trim(),
+      atividade_fisica: document.getElementById('atividade_fisica').value.trim(),
+      motivo_consulta: motivo,
+      fator_vida: document.getElementById('fator_vida').value.trim(),
+      dificuldades: dificuldades,
+      expectativas: document.getElementById('expectativas').value.trim(),
+      refeicoes_dia: document.getElementById('refeicoes_dia').value,
+      tempo_refeicao: document.getElementById('tempo_refeicao').value,
+      agua: getCheckedValues('agua'),
+      liquidos: getCheckboxValues(['liq1','liq2','liq3','liq4','liq5','liq6']),
+      come_por_emocao: getCheckboxValues(['em1','em2','em3','em4','em5','em6','em7','em8','em9']),
+      comportamentos: getCheckboxValues(['c1','c2','c3','c4','c5','c6','c7','c8']),
+      ja_fez_dieta: getCheckedValues('ja_fez_dieta'),
+      tipos_dieta: getCheckboxValues(['tp1','tp2','tp3','tp4','tp5','tp6']),
+      relacao_comida: document.getElementById('relacao_comida').value.trim(),
+      alimento_descontrolado: document.getElementById('alimento_descontrolado').value.trim(),
+      apos_proibido: getCheckboxValues(['ap1','ap2','ap3','ap4','ap5']),
+      frequencia_pensamentos: getCheckedValues('pensamento'),
+      experiencia_profissionais: document.getElementById('experiencia_profissionais').value.trim(),
+      usa_injecao: getCheckedValues('usa_injecao'),
+      qual_injecao: document.getElementById('qual_injecao').value.trim(),
+      efeitos_injecao: getCheckboxValues(['ef1','ef2','ef3','ef4','ef5','ef6','ef7']),
+      emocional_injecao: document.getElementById('emocional_injecao').value.trim(),
+      altura_atual: document.getElementById('altura_atual').value.trim(),
+      peso_atual: document.getElementById('peso_atual').value.trim(),
+      peso_maximo: document.getElementById('peso_maximo').value.trim(),
+      peso_minimo: document.getElementById('peso_minimo').value.trim(),
+      peso_desejado: document.getElementById('peso_desejado').value.trim(),
+      frequencia_peso: document.getElementById('frequencia_peso').value,
+      perda_peso_recente: document.getElementById('perda_peso_recente').value.trim(),
+      sensacao_corpo: document.getElementById('sensacao_corpo').value.trim(),
+      por_que_agora: document.getElementById('por_que_agora').value.trim(),
+      escala_prontidao: getScaleValue('scale-prontidao'),
+      escala_crenca: getScaleValue('scale-crenca'),
+      observacoes_finais: document.getElementById('observacoes_finais').value.trim()
+    };
+
+    try {
+      const params = new URLSearchParams(dados);
+      const resp = await fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        body: params,
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+      });
+      const result = await resp.json();
+
+      if (result.success) {
+        // Exibe tela de sucesso
+        document.getElementById('form-content').style.display = 'none';
+        const s = document.getElementById('success-screen');
+        s.style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        sessionStorage.removeItem('anamnese_email');
+        sessionStorage.removeItem('anamnese_nome');
+      } else {
+        showToast('❌ ' + (result.error || 'Erro ao enviar. Tente novamente.'), 'error');
+        btn.disabled = false;
+      }
+    } catch (err) {
+      showToast('❌ Erro de conexão. Verifique sua internet e tente novamente.', 'error');
+      btn.disabled = false;
+    }
+  }
+</script>
+
+</body>
+</html>
