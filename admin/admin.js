@@ -229,6 +229,23 @@ function abrirModal(index) {
   document.body.style.overflow = 'hidden';
 }
 
+function imprimirAnamnese() {
+  const nome = document.getElementById('modal-nome').textContent;
+  const body = document.getElementById('modal-body').innerHTML;
+  const printArea = document.getElementById('print-area');
+  printArea.innerHTML = `
+    <div style="text-align:center;margin-bottom:20px;padding-bottom:12px;border-bottom:2px solid #A0522D;">
+      <div style="font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:5px;color:#D4A574;text-transform:uppercase;margin-bottom:4px;">Luara Ceroche · Terapeuta Nutricional</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;color:#3D1F0D;">Anamnese — ${nome}</div>
+      <div style="font-size:11px;color:#8A6A55;margin-top:4px;">Gerado em ${new Date().toLocaleDateString('pt-BR', {day:'2-digit',month:'long',year:'numeric'})}</div>
+    </div>
+    ${body}
+  `;
+  printArea.style.display = 'block';
+  window.print();
+  printArea.style.display = 'none';
+}
+
 function fecharModal(event) {
   if (event && event.target !== document.getElementById('modal-overlay') && !event.target.classList.contains('modal-close')) return;
   document.getElementById('modal-overlay').classList.remove('open');
@@ -290,43 +307,4 @@ async function adicionarEmail() {
   try {
     const result = await api({ action: 'addEmail', email, nome });
     if (result.success) {
-      toast('✓ ' + result.message);
-      document.getElementById('new-email').value = '';
-      document.getElementById('new-nome').value = '';
-      await carregarEmails();
-    } else {
-      toast('Erro: ' + result.error);
-    }
-  } catch {
-    toast('Erro de conexão.');
-  }
-}
-
-async function desativarEmail(email) {
-  if (!confirm('Desativar o acesso de ' + email + '?')) return;
-  try {
-    const result = await api({ action: 'removeEmail', email });
-    if (result.success) {
-      toast('✓ Acesso desativado.');
-      await carregarEmails();
-    } else {
-      toast('Erro: ' + result.error);
-    }
-  } catch {
-    toast('Erro de conexão.');
-  }
-}
-
-async function reativarEmail(email, nome) {
-  try {
-    const result = await api({ action: 'addEmail', email, nome });
-    if (result.success) {
-      toast('✓ Acesso reativado.');
-      await carregarEmails();
-    } else {
-      toast('Erro: ' + result.error);
-    }
-  } catch {
-    toast('Erro de conexão.');
-  }
-}
+      toast('�

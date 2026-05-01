@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Consentimento LGPD — Luara Ceroche</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --terra: #A0522D;
+    --terra-light: #C4784A;
+    --beige: #F5EDE3;
+    --beige-dark: #EDD9C4;
+    --brown-deep: #3D1F0D;
+    --warm-white: #FDF8F3;
+    --sand: #D4A574;
+    --text: #2C1A0E;
+    --muted: #8A6A55;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--warm-white);
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 24px;
+  }
+
+  .card {
+    background: white;
+    border-radius: 20px;
+    padding: 48px 40px;
+    max-width: 600px;
+    width: 100%;
+    box-shadow: 0 8px 40px rgba(61, 31, 13, 0.10);
+  }
+
+  .logo-line {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 6px;
+    color: var(--sand);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    text-align: center;
+  }
+
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 300;
+    color: var(--brown-deep);
+    text-align: center;
+    margin-bottom: 4px;
+  }
+
+  h1 em { font-style: italic; color: var(--terra); }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 16px 0 24px;
+  }
+  .divider span { display: block; width: 40px; height: 1px; background: var(--sand); opacity: 0.5; }
+  .divider i { color: var(--sand); font-size: 10px; font-style: normal; }
+
+  .intro {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.65;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .lgpd-box {
+    background: var(--beige);
+    border: 1px solid var(--beige-dark);
+    border-radius: 12px;
+    padding: 20px 24px;
+    font-size: 13px;
+    line-height: 1.75;
+    color: var(--text);
+    margin-bottom: 24px;
+    max-height: 280px;
+    overflow-y: auto;
+  }
+
+  .lgpd-box h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--brown-deep);
+    margin-bottom: 10px;
+  }
+
+  .lgpd-box p { margin-bottom: 10px; }
+  .lgpd-box p:last-child { margin-bottom: 0; }
+
+  .lgpd-box strong { color: var(--terra); font-weight: 500; }
+
+  .consent-check {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 24px;
+    cursor: pointer;
+  }
+
+  .consent-check input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    accent-color: var(--terra);
+    cursor: pointer;
+  }
+
+  .consent-check span {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  .consent-check span strong { color: var(--terra); font-weight: 500; }
+
+  .btn {
+    width: 100%;
+    background: var(--terra);
+    color: white;
+    border: none;
+    padding: 14px 20px;
+    border-radius: 30px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    letter-spacing: 0.4px;
+    transition: background 0.2s, transform 0.15s;
+    box-shadow: 0 4px 14px rgba(160, 82, 45, 0.28);
+  }
+
+  .btn:hover:not(:disabled) {
+    background: var(--terra-light);
+    transform: translateY(-1px);
+  }
+
+  .btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+
+  .footer-note {
+    margin-top: 20px;
+    font-size: 11px;
+    color: var(--muted);
+    opacity: 0.7;
+    letter-spacing: 0.5px;
+    text-align: center;
+  }
+
+  .back-link {
+    display: block;
+    margin-top: 14px;
+    font-size: 12px;
+    color: var(--muted);
+    text-decoration: none;
+    opacity: 0.7;
+    text-align: center;
+  }
+  .back-link:hover { opacity: 1; text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="logo-line">Luara Ceroche · Terapeuta Nutricional</div>
+  <h1>Consentimento <em>LGPD</em></h1>
+  <div class="divider"><span></span><i>✦</i><span></span></div>
+
+  <p class="intro">
+    Antes de preencher sua anamnese, leia com atenção<br>
+    como seus dados serão utilizados.
+  </p>
+
+  <div class="lgpd-box">
+    <h3>Declaração de Consentimento — Lei 13.709/2018 (LGPD)</h3>
+
+    <p><strong>Quais dados coletamos:</strong> Nome completo, data de nascimento, WhatsApp, e-mail, histórico de saúde, histórico alimentar, informações sobre estilo de vida e outros dados fornecidos voluntariamente neste formulário de anamnese.</p>
+
+    <p><strong>Para quê usamos seus dados:</strong> As informações coletadas são utilizadas exclusivamente para fins clínicos — planejamento nutricional, acompanhamento terapêutico e comunicação entre você e Luara Ceroche no âmbito do atendimento contratado.</p>
+
+    <p><strong>Quem tem acesso:</strong> Somente Luara Ceroche, terapeuta nutricional responsável pelo seu atendimento, tem acesso às suas respostas. Seus dados não são compartilhados com terceiros.</p>
+
+    <p><strong>Armazenamento:</strong> Suas respostas são armazenadas em ambiente seguro (Google Workspace). Os dados são mantidos pelo período necessário à prestação do serviço e por até 5 anos após o encerramento do atendimento, conforme obrigações legais.</p>
+
+    <p><strong>Seus direitos:</strong> A qualquer momento você pode solicitar acesso, correção, portabilidade ou exclusão dos seus dados, entrando em contato diretamente com Luara pelo WhatsApp ou e-mail informados no contrato de serviço.</p>
+
+    <p><strong>Base legal:</strong> Consentimento do titular (Art. 7º, I, LGPD) e execução de contrato (Art. 7º, V, LGPD).</p>
+  </div>
+
+  <label class="consent-check">
+    <input type="checkbox" id="check-lgpd">
+    <span>Li e compreendi as informações acima e <strong>autorizo o uso dos meus dados pessoais e de saúde</strong> por Luara Ceroche, para fins exclusivos de atendimento terapêutico nutricional, conforme descrito neste termo.</span>
+  </label>
+
+  <button class="btn" id="btn-aceitar" disabled onclick="aceitar()">
+    Aceito e quero preencher o formulário →
+  </button>
+
+  <p class="footer-note">Seus dados são confidenciais e protegidos.</p>
+  <a class="back-link" href="/anamnese/login.html">← Voltar</a>
+</div>
+
+<script>
+  // Verifica se veio do login (deve ter email na sessão)
+  if (!sessionStorage.getItem('anamnese_email')) {
+    window.location.replace('/anamnese/login.html');
+  }
+
+  document.getElementById('check-lgpd').addEventListener('change', function() {
+    document.getElementById('btn-aceitar').disabled = !this.checked;
+  });
+
+  function aceitar() {
+    sessionStorage.setItem('anamnese_lgpd', '1');
+    window.location.href = '/anamnese/';
+  }
+</script>
+
+</body>
+</html>

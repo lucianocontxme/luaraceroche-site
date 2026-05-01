@@ -108,7 +108,7 @@ async function enviarFormulario() {
     refeicoes_dia: document.getElementById('refeicoes_dia').value,
     tempo_refeicao: document.getElementById('tempo_refeicao').value,
     agua: getCheckedValues('agua'),
-    liquidos: getCheckboxValues(['liq1','liq2','liq3','liq4','liq5','liq6']),
+    liquidos: getCheckboxValues(['liq1','liq2','liq3','liq4','liq5','liq6','liq7','liq8']),
     come_por_emocao: getCheckboxValues(['em1','em2','em3','em4','em5','em6','em7','em8','em9']),
     comportamentos: getCheckboxValues(['c1','c2','c3','c4','c5','c6','c7','c8']),
     ja_fez_dieta: getCheckedValues('ja_fez_dieta'),
@@ -160,6 +160,4 @@ async function enviarFormulario() {
     }
   } catch (err) {
     showToast('Erro de conexao. Verifique sua internet e tente novamente.', 'error');
-    btn.disabled = false;
-  }
-}
+    btn.disabled =

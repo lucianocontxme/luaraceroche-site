@@ -382,6 +382,41 @@
 
   .modal-close:hover { background: var(--beige-dark); }
 
+  .btn-print {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 4px;
+    background: var(--terra);
+    color: white;
+    border: none;
+    padding: 9px 18px;
+    border-radius: 20px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    letter-spacing: 0.3px;
+    transition: background 0.2s;
+  }
+  .btn-print:hover { background: var(--terra-light); }
+
+  @media print {
+    body * { visibility: hidden; }
+    #print-area, #print-area * { visibility: visible; }
+    #print-area {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      padding: 24px 32px;
+      font-family: 'DM Sans', sans-serif;
+      color: #2C1A0E;
+    }
+    .field-item label { font-weight: 600; font-size: 11px; color: #8A6A55; }
+    .modal-section-title { font-size: 13px; font-weight: 700; color: #A0522D; margin: 16px 0 6px; border-bottom: 1px solid #EDD9C4; padding-bottom: 4px; }
+    .field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 20px; }
+  }
+
   .modal h2 {
     font-family: 'Cormorant Garamond', serif;
     font-size: 24px;
@@ -701,35 +736,4 @@
 
       <!-- Lista de emails -->
       <div class="table-wrap">
-        <div class="search-bar">
-          <input type="text" id="search-email" placeholder="Buscar paciente…" oninput="filtrarEmails()">
-          <button class="btn-refresh" onclick="carregarEmails()">↻ Atualizar</button>
-        </div>
-        <div id="lista-emails">
-          <div class="empty-state">
-            <div class="spinner" style="width:20px;height:20px;border-color:rgba(160,82,45,0.3);border-top-color:var(--terra);display:block;margin:0 auto 12px"></div>
-            Carregando…
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div><!-- /main-content -->
-</div><!-- /app -->
-
-<!-- ======== MODAL DETALHES ======== -->
-<div class="modal-overlay" id="modal-overlay" onclick="fecharModal(event)">
-  <div class="modal" id="modal">
-    <button class="modal-close" onclick="fecharModal()">✕</button>
-    <h2 id="modal-nome">Detalhes da Anamnese</h2>
-    <div id="modal-body"></div>
-  </div>
-</div>
-
-<!-- TOAST -->
-<div class="toast-container" id="toast-container"></div>
-
-<script src="admin.js" defer></script>
-
-</body>
-</html>
+        <div cla

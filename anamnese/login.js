@@ -40,9 +40,10 @@ async function verificarEmail() {
     if (data.authorized) {
       sessionStorage.setItem('anamnese_email', email);
       sessionStorage.setItem('anamnese_nome', data.nome || '');
+      sessionStorage.removeItem('anamnese_lgpd');
       showMsg('✓ Acesso liberado! Redirecionando…', 'loading');
       setTimeout(() => {
-        window.location.href = '/anamnese/';
+        window.location.href = '/anamnese/lgpd.html';
       }, 800);
     } else {
       showMsg(
@@ -64,7 +65,4 @@ async function verificarEmail() {
 }
 
 emailInput.addEventListener('keydown', e => {
-  if (e.key === 'Enter') verificarEmail();
-});
-
-btn.addEventListener('click', verificarEmail);
+  if (e.key === 'Enter') verificarEm

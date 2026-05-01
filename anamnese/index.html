@@ -701,6 +701,8 @@
         <div class="option-chip"><input type="checkbox" id="liq4" value="Refrigerantes"><label for="liq4">Refrigerantes</label></div>
         <div class="option-chip"><input type="checkbox" id="liq5" value="Bebidas energéticas"><label for="liq5">Bebidas energéticas</label></div>
         <div class="option-chip"><input type="checkbox" id="liq6" value="Leite / shakes"><label for="liq6">Leite / shakes</label></div>
+        <div class="option-chip"><input type="checkbox" id="liq7" value="Bebida alcoólica (frequentemente)"><label for="liq7">Bebida alcoólica (frequentemente)</label></div>
+        <div class="option-chip"><input type="checkbox" id="liq8" value="Bebida alcoólica (socialmente)"><label for="liq8">Bebida alcoólica (socialmente)</label></div>
       </div>
     </div>
 
@@ -774,10 +776,10 @@
     <div class="field">
       <label>Como você se sente após comer algo que considera "proibido"?</label>
       <div class="options-group">
-        <div class="option-chip"><input type="checkbox" id="ap1" value="Culpa intensa"><label for="ap1">Culpa intensa</label></div>
-        <div class="option-chip"><input type="checkbox" id="ap2" value="Vergonha"><label for="ap2">Vergonha</label></div>
-        <div class="option-chip"><input type="checkbox" id="ap3" value="Vontade de compensar"><label for="ap3">Vontade de compensar</label></div>
-        <div class="option-chip"><input type="checkbox" id="ap4" value="Indiferença"><label for="ap4">Indiferença</label></div>
+        <div class="option-chip"><input type="checkbox" id="ap1" value="Culpada"><label for="ap1">Culpada</label></div>
+        <div class="option-chip"><input type="checkbox" id="ap2" value="Envergonhada"><label for="ap2">Envergonhada</label></div>
+        <div class="option-chip"><input type="checkbox" id="ap3" value="Com vontade de compensar"><label for="ap3">Com vontade de compensar</label></div>
+        <div class="option-chip"><input type="checkbox" id="ap4" value="Indiferente"><label for="ap4">Indiferente</label></div>
         <div class="option-chip"><input type="checkbox" id="ap5" value="Não tenho alimentos proibidos"><label for="ap5">Não tenho alimentos proibidos</label></div>
       </div>
     </div>
@@ -865,7 +867,7 @@
         <input type="text" id="peso_maximo" placeholder="Ex: 85 kg">
       </div>
       <div class="field">
-        <label>Peso mínimo que já teve</label>
+        <label>Peso mínimo que já teve (na fase adulta)</label>
         <input type="text" id="peso_minimo" placeholder="Ex: 58 kg">
       </div>
       <div class="field">
@@ -935,20 +937,4 @@
   <!-- SUBMIT -->
   <div class="submit-area">
     <p>"Cada resposta honesta aqui é o primeiro passo<br>de um caminho de cuidado genuíno."</p>
-    <button class="btn-submit" id="btn-submit" type="button" onclick="enviarFormulario()">
-      Enviar Formulário
-    </button>
-    <div class="toast" id="toast"></div>
-  </div>
-
-</div>
-</div><!-- /form-content -->
-
-<div class="footer">
-  © Luara Ceroche · Terapeuta Nutricional · @luaraceroche
-</div>
-
-<script src="form-logic.js" defer></script>
-
-</body>
-</html>
+    
