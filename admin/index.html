@@ -736,4 +736,41 @@
 
       <!-- Lista de emails -->
       <div class="table-wrap">
-        <div cla
+        <div class="search-bar">
+          <input type="text" id="search-email" placeholder="Buscar por nome ou e-mail…" oninput="filtrarEmails()">
+          <button class="btn-refresh" onclick="carregarEmails()">↻ Atualizar</button>
+        </div>
+        <div id="lista-emails">
+          <div class="empty-state">
+            <div class="spinner" style="width:20px;height:20px;border-color:rgba(160,82,45,0.3);border-top-color:var(--terra);display:block;margin:0 auto 12px"></div>
+            Carregando…
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast-container" class="toast-container"></div>
+
+<!-- MODAL DETALHES -->
+<div id="modal-overlay" class="modal-overlay" onclick="fecharModal(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="fecharModal(event)">✕</button>
+    <div id="modal-nome" style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--brown-deep);margin-bottom:12px;padding-right:90px;"></div>
+    <div style="margin-bottom:20px;">
+      <button class="btn-print" onclick="imprimirAnamnese()">🖨 Imprimir / Salvar PDF</button>
+    </div>
+    <div id="modal-body" class="modal-body"></div>
+  </div>
+</div>
+
+<!-- PRINT AREA -->
+<div id="print-area" style="display:none"></div>
+
+<script src="admin.js" defer></script>
+
+</body>
+</html>
