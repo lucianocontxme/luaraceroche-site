@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Agendar Consulta — Luara Ceroche</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --terra:#B85C2A; --terra2:#C96B35; --marrom:#5C2E14;
+  --beige:#F5EDE0; --beige2:#FAF6F1; --cinza:#9C7A6A;
+  --verde:#3D6645; --branco:#fff;
+}
+body{font-family:'Nunito',sans-serif;background:var(--beige2);color:var(--marrom);min-height:100vh;}
+
+/* HEADER */
+.header{background:var(--branco);padding:16px 24px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 12px rgba(92,46,20,.08);position:sticky;top:0;z-index:10;}
+.header-logo{font-family:'Playfair Display',serif;font-size:18px;color:var(--marrom);}
+.header-logo span{color:var(--terra);}
+.header-back{background:none;border:1.5px solid var(--terra);color:var(--terra);padding:8px 16px;border-radius:100px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;}
+
+/* STEPS */
+.steps{display:flex;justify-content:center;gap:0;padding:24px 20px 0;max-width:480px;margin:0 auto;}
+.step-item{flex:1;text-align:center;position:relative;}
+.step-item::after{content:'';position:absolute;top:14px;left:50%;width:100%;height:2px;background:#E4D4C0;z-index:0;}
+.step-item:last-child::after{display:none;}
+.step-circle{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;margin:0 auto 6px;position:relative;z-index:1;transition:all .3s;}
+.step-circle.active{background:var(--terra);color:var(--branco);}
+.step-circle.done{background:var(--verde);color:var(--branco);}
+.step-circle.pending{background:#E4D4C0;color:var(--cinza);}
+.step-label{font-size:10px;color:var(--cinza);font-weight:600;}
+.step-label.active{color:var(--terra);}
+
+/* CONTAINER */
+.container{max-width:480px;margin:0 auto;padding:24px 16px 60px;}
+
+/* CARD */
+.card{background:var(--branco);border-radius:20px;padding:24px;margin-bottom:16px;box-shadow:0 4px 20px rgba(92,46,20,.06);}
+.card-title{font-family:'Playfair Display',serif;font-size:20px;color:var(--marrom);margin-bottom:6px;}
+.card-sub{font-size:13px;color:var(--cinza);margin-bottom:20px;line-height:1.5;}
+
+/* MODALIDADE */
+.mod-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:0;}
+.mod-btn{border:2px solid #E4D4C0;border-radius:16px;padding:20px 12px;text-align:center;cursor:pointer;transition:all .25s;background:var(--branco);}
+.mod-btn:hover{border-color:var(--terra2);}
+.mod-btn.selected{border-color:var(--terra);background:#FFF5EE;}
+.mod-icon{font-size:28px;margin-bottom:8px;}
+.mod-label{font-weight:700;color:var(--marrom);font-size:14px;margin-bottom:4px;}
+.mod-desc{font-size:11px;color:var(--cinza);line-height:1.4;}
+
+/* CALENDAR */
+.cal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.cal-nav{background:none;border:1.5px solid #E4D4C0;border-radius:50%;width:32px;height:32px;cursor:pointer;font-size:16px;color:var(--terra);display:flex;align-items:center;justify-content:center;}
+.cal-month{font-family:'Playfair Display',serif;font-size:17px;color:var(--marrom);}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;}
+.cal-day-name{text-align:center;font-size:10px;font-weight:700;color:var(--cinza);padding:4px 0;text-transform:uppercase;}
+.cal-day{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:50%;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;border:2px solid transparent;}
+.cal-day.empty{cursor:default;}
+.cal-day.past{color:#D4C4B8;cursor:not-allowed;}
+.cal-day.unavailable{color:#D4C4B8;cursor:not-allowed;}
+.cal-day.available{color:var(--marrom);cursor:pointer;}
+.cal-day.available:hover{background:#FFF5EE;border-color:var(--terra2);}
+.cal-day.selected{background:var(--terra);color:var(--branco);border-color:var(--terra);}
+.cal-day.today{border-color:var(--terra2);}
+.cal-legend{display:flex;gap:16px;margin-top:12px;font-size:11px;color:var(--cinza);}
+.cal-legend span{display:flex;align-items:center;gap:5px;}
+.dot{width:8px;height:8px;border-radius:50%;}
+
+/* SLOTS */
+.slots-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.slot{padding:10px 6px;border:2px solid #E4D4C0;border-radius:12px;text-align:center;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;color:var(--marrom);}
+.slot:hover{border-color:var(--terra2);background:#FFF5EE;}
+.slot.selected{background:var(--terra);color:var(--branco);border-color:var(--terra);}
+
+/* FORM */
+.field{margin-bottom:16px;}
+.field label{display:block;font-size:12px;font-weight:700;color:var(--cinza);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px;}
+.field input,.field select{width:100%;padding:13px 16px;border:1.5px solid #E4D4C0;border-radius:12px;font-size:14px;font-family:'Nunito',sans-serif;color:var(--marrom);outline:none;transition:border .2s;background:var(--branco);}
+.field input:focus,.field select:focus{border-color:var(--terra);}
+
+/* RESUMO */
+.resumo-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #F0E4D4;}
+.resumo-row:last-child{border-bottom:none;}
+.resumo-label{font-size:13px;color:var(--cinza);}
+.resumo-val{font-size:14px;font-weight:700;color:var(--marrom);}
+.resumo-total{background:linear-gradient(135deg,var(--terra),var(--terra2));border-radius:14px;padding:16px;margin-top:12px;display:flex;justify-content:space-between;align-items:center;}
+.resumo-total-label{color:rgba(255,255,255,.8);font-size:13px;}
+.resumo-total-val{color:#fff;font-size:22px;font-weight:700;font-family:'Playfair Display',serif;}
+
+/* PAGAMENTO */
+.pay-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}
+.pay-opt{border:2px solid #E4D4C0;border-radius:14px;padding:16px;text-align:center;cursor:pointer;transition:all .2s;}
+.pay-opt:hover{border-color:var(--terra2);}
+.pay-opt.selected{border-color:var(--terra);background:#FFF5EE;}
+.pay-opt-icon{font-size:24px;margin-bottom:6px;}
+.pay-opt-label{font-weight:700;font-size:13px;color:var(--marrom);}
+.pay-opt-sub{font-size:11px;color:var(--cinza);margin-top:2px;}
+
+/* PIX */
+.pix-box{background:#F0F7F2;border:2px dashed var(--verde);border-radius:16px;padding:20px;text-align:center;margin-bottom:16px;}
+.pix-key{font-size:16px;font-weight:700;color:var(--verde);margin:8px 0;letter-spacing:1px;}
+.pix-copy{background:var(--verde);color:#fff;border:none;border-radius:100px;padding:10px 24px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;margin-top:8px;}
+.pix-timer{font-size:12px;color:var(--cinza);margin-top:8px;}
+
+/* BOTÃO PRINCIPAL */
+.btn-main{width:100%;padding:16px;background:linear-gradient(135deg,var(--terra),var(--terra2));color:#fff;border:none;border-radius:14px;font-size:16px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;box-shadow:0 6px 20px rgba(184,92,42,.35);transition:transform .2s,box-shadow .2s;margin-top:8px;}
+.btn-main:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(184,92,42,.45);}
+.btn-main:disabled{opacity:.5;cursor:not-allowed;transform:none;}
+.btn-sec{width:100%;padding:14px;background:none;color:var(--terra);border:2px solid var(--terra);border-radius:14px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;margin-top:8px;}
+
+/* SUCESSO */
+.sucesso{text-align:center;padding:40px 20px;}
+.sucesso-icon{font-size:64px;margin-bottom:16px;}
+.sucesso-title{font-family:'Playfair Display',serif;font-size:26px;color:var(--marrom);margin-bottom:10px;}
+.sucesso-sub{font-size:14px;color:var(--cinza);line-height:1.7;margin-bottom:24px;}
+.sucesso-card{background:var(--beige);border-radius:16px;padding:20px;text-align:left;margin-bottom:20px;}
+
+/* ENDEREÇO */
+.endereco-box{background:var(--beige);border-radius:14px;padding:16px;font-size:13px;color:var(--cinza);line-height:1.6;margin-top:12px;}
+.endereco-box strong{color:var(--marrom);}
+
+/* UTIL */
+.hidden{display:none!important;}
+.tag{display:inline-block;background:#FFF5EE;color:var(--terra);border:1px solid var(--terra2);border-radius:100px;padding:4px 12px;font-size:11px;font-weight:700;margin-bottom:12px;}
+.slot.taken{opacity:0.35;cursor:not-allowed;text-decoration:line-through;pointer-events:none;}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-logo">Luara <span>Ceroche</span></div>
+  <button class="header-back" onclick="history.back()">← Voltar</button>
+</div>
+
+<!-- STEPS -->
+<div class="steps" id="stepsBar">
+  <div class="step-item">
+    <div class="step-circle active" id="sc1">1</div>
+    <div class="step-label active" id="sl1">Modalidade</div>
+  </div>
+  <div class="step-item">
+    <div class="step-circle pending" id="sc2">2</div>
+    <div class="step-label" id="sl2">Data</div>
+  </div>
+  <div class="step-item">
+    <div class="step-circle pending" id="sc3">3</div>
+    <div class="step-label" id="sl3">Seus dados</div>
+  </div>
+  <div class="step-item">
+    <div class="step-circle pending" id="sc4">4</div>
+    <div class="step-label" id="sl4">Pagamento</div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- STEP 1: MODALIDADE -->
+<div id="step1">
+  <div class="card">
+    <div class="tag">Primeira consulta · Entrevista Motivacional</div>
+    <div class="card-title">Como prefere ser atendida?</div>
+    <div class="card-sub">Escolha a modalidade que funciona melhor para você. O valor é o mesmo para ambas.</div>
+    <div class="mod-grid">
+      <div class="mod-btn" id="mod-online" onclick="selectMod('online')">
+        <div class="mod-icon">💻</div>
+        <div class="mod-label">Online</div>
+        <div class="mod-desc">Seg, Ter e Qui<br/>8h às 18h</div>
+      </div>
+      <div class="mod-btn" id="mod-presencial" onclick="selectMod('presencial')">
+        <div class="mod-icon">🏥</div>
+        <div class="mod-label">Presencial</div>
+        <div class="mod-desc">Quartas-feiras<br/>Macaé · RJ</div>
+      </div>
+    </div>
+    <div id="endereco-box" class="endereco-box hidden" style="margin-top:12px;">
+      <strong>📍 Endereço</strong><br/>
+      Rua Marechal Deodoro, 306 — Sala 210<br/>Macaé, RJ
+    </div>
+  </div>
+  <button class="btn-main" id="btn1" onclick="goStep(2)" disabled>Escolher data →</button>
+</div>
+
+<!-- STEP 2: DATA E HORÁRIO -->
+<div id="step2" class="hidden">
+  <div class="card">
+    <div class="card-title">Escolha a data</div>
+    <div class="card-sub" id="cal-sub">Dias disponíveis destacados</div>
+    <div class="cal-header">
+      <button class="cal-nav" onclick="changeMonth(-1)">‹</button>
+      <div class="cal-month" id="calMonthLabel"></div>
+      <button class="cal-nav" onclick="changeMonth(1)">›</button>
+    </div>
+    <div class="cal-grid" id="calGrid"></div>
+    <div class="cal-legend">
+      <span><div class="dot" style="background:var(--terra)"></div>Disponível</span>
+      <span><div class="dot" style="background:#D4C4B8"></div>Indisponível</span>
+    </div>
+  </div>
+
+  <div class="card hidden" id="slotsCard">
+    <div class="card-title">Escolha o horário</div>
+    <div class="card-sub" id="slots-sub"></div>
+    <div class="slots-grid" id="slotsGrid"></div>
+  </div>
+
+  <button class="btn-main" id="btn2" onclick="goStep(3)" disabled>Continuar →</button>
+  <button class="btn-sec" onclick="goStep(1)">← Voltar</button>
+</div>
+
+<!-- STEP 3: DADOS -->
+<div id="step3" class="hidden">
+  <div class="card">
+    <div class="card-title">Seus dados</div>
+    <div class="card-sub">Para enviarmos a confirmação por e-mail.</div>
+    <div class="field">
+      <label>Nome completo</label>
+      <input type="text" id="inp-nome" placeholder="Seu nome completo" oninput="checkStep3()"/>
+    </div>
+    <div class="field">
+      <label>E-mail</label>
+      <input type="email" id="inp-email" placeholder="seu@email.com" oninput="checkStep3()"/>
+    </div>
+    <div class="field">
+      <label>WhatsApp</label>
+      <input type="tel" id="inp-tel" placeholder="(00) 00000-0000" oninput="checkStep3()"/>
+    </div>
+    <div class="field">
+      <label>Como nos encontrou?</label>
+      <select id="inp-origem" onchange="checkStep3()">
+        <option value="">Selecione...</option>
+        <option>Instagram</option>
+        <option>Indicação de amiga</option>
+        <option>Google</option>
+        <option>Outra forma</option>
+      </select>
+    </div>
+  </div>
+  <button class="btn-main" id="btn3" onclick="goStep(4)" disabled>Ver resumo →</button>
+  <button class="btn-sec" onclick="goStep(2)">← Voltar</button>
+</div>
+
+<!-- STEP 4: RESUMO + PAGAMENTO -->
+<div id="step4" class="hidden">
+  <div class="card">
+    <div class="card-title">Resumo do agendamento</div>
+    <div style="margin-top:16px;">
+      <div class="resumo-row"><span class="resumo-label">Consulta</span><span class="resumo-val">Entrevista Motivacional</span></div>
+      <div class="resumo-row"><span class="resumo-label">Modalidade</span><span class="resumo-val" id="r-mod"></span></div>
+      <div class="resumo-row"><span class="resumo-label">Data</span><span class="resumo-val" id="r-data"></span></div>
+      <div class="resumo-row"><span class="resumo-label">Horário</span><span class="resumo-val" id="r-hora"></span></div>
+      <div class="resumo-row"><span class="resumo-label">Paciente</span><span class="resumo-val" id="r-nome"></span></div>
+      <div id="r-end-row" class="resumo-row hidden"><span class="resumo-label">Endereço</span><span class="resumo-val" style="font-size:12px;">Rua Marechal Deodoro, 306 — Sala 210, Macaé</span></div>
+    </div>
+    <div class="resumo-total">
+      <span class="resumo-total-label">Total</span>
+      <span class="resumo-total-val">R$ 157,00</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Forma de pagamento</div>
+    <div class="card-sub">O pagamento é feito via PIX. Após confirmar, seu agendamento estará garantido.</div>
+    <!-- PIX ÚNICO -->
+    <div class="pix-box">
+      <div style="font-size:13px;color:var(--cinza);margin-bottom:4px;">Chave PIX</div>
+      <div class="pix-key">11963445745</div>
+      <div style="font-size:12px;color:var(--cinza);">Luara Ceroche · R$ 157,00</div>
+      <button class="pix-copy" onclick="copyPix()">📋 Copiar chave PIX</button>
+      <div style="font-size:12px;color:var(--cinza);margin-top:10px;line-height:1.5;">Após realizar o pagamento, clique no botão abaixo para confirmar.</div>
+    </div>
+    <label style="display:flex;align-items:flex-start;gap:8px;margin:16px 0;font-size:13px;color:#666;"><input type="checkbox" id="chk-lgpd" style="margin-top:3px;"/><span>Concordo com o uso dos meus dados (nome, e-mail, telefone) para fins de agendamento e contato, nos termos da <a href="/privacidade/" target="_blank" style="color:#B85C2A;text-decoration:underline;">Política de Privacidade</a>.</span></label>
+    <button class="btn-main" onclick="confirmarPagamento()">✅ Confirmei o pagamento</button>
+  </div>
+
+  <button class="btn-sec" onclick="goStep(3)">← Voltar</button>
+</div>
+
+<!-- SUCESSO -->
+<div id="stepSucesso" class="hidden">
+  <div class="sucesso">
+    <div class="sucesso-icon">🌿</div>
+    <div class="sucesso-title">Agendamento confirmado!</div>
+    <div class="sucesso-sub">Aguardamos o comprovante de pagamento para confirmação do atendimento. Caso o comprovante não seja enviado, o agendamento será desmarcado.</div>
+    <div class="sucesso-card">
+      <div class="resumo-row"><span class="resumo-label">Consulta</span><span class="resumo-val">Entrevista Motivacional</span></div>
+      <div class="resumo-row"><span class="resumo-label">Modalidade</span><span class="resumo-val" id="s-mod"></span></div>
+      <div class="resumo-row"><span class="resumo-label">Data</span><span class="resumo-val" id="s-data"></span></div>
+      <div class="resumo-row"><span class="resumo-label">Horário</span><span class="resumo-val" id="s-hora"></span></div>
+      <div class="resumo-row"><span class="resumo-label">Valor pago</span><span class="resumo-val" style="color:var(--verde)">R$ 157,00 ✓</span></div>
+    </div>
+    <div id="s-end" class="endereco-box hidden" style="margin-bottom:16px;">
+      <strong>📍 Como chegar</strong><br/>
+      Rua Marechal Deodoro, 306 — Sala 210<br/>Macaé, RJ<br/>
+      <a href="https://maps.google.com/?q=Rua+Marechal+Deodoro+306+Macae+RJ" target="_blank" style="color:var(--terra);font-weight:700;">Abrir no Maps →</a>
+    </div>
+    <div style="font-size:13px;color:var(--cinza);line-height:1.7;margin-bottom:20px;">
+      Qualquer dúvida, entre em contato pelo WhatsApp ou Instagram <strong>@luaraceroche</strong>.
+    </div>
+    <a href="https://wa.me/5511963445745" target="_blank">
+      <button class="btn-main">📎 Enviar Comprovante de Pagamento</button>
+    </a>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<script>
+// ── CONFIG ────────────────────────────────
+const SLOTS_ONLINE     = ['08:00','09:30','11:00','13:00','14:30','16:00'];
+const SLOTS_PRESENCIAL = ['10:00','11:30','13:00','14:30','16:00'];
+// 0=Dom,1=Seg,2=Ter,3=Qua,4=Qui,5=Sex,6=Sáb
+const DIAS_ONLINE      = [1,2,4]; // Seg, Ter, Qui
+const DIAS_PRESENCIAL  = [3];     // Qua
+
+const MESES = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+const DIAS_SEMANA = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+const DIAS_SEMANA_FULL = ['domingo','segunda-feira','terça-feira','quarta-feira','quinta-feira','sexta-feira','sábado'];
+
+// ── STATE ─────────────────────────────────
+let state = {
+  modalidade: null,
+  dataSel: null,
+  horaSel: null,
+  payMethod: null,
+  calYear: new Date().getFullYear(),
+  calMonth: new Date().getMonth(),
+};
+
+const WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbyr2bsQEQedhFOXc_SZ2mtWHWFVMaYHwEcGOJnoK0qqHKXYornJMC8LDp0eJEE5Ed8hPQ/exec';
+const takenSlots = new Set();
+const availSet = new Set(); // chaves: "YYYY-MM-DD|HH:mm|modalidade"
+let availLoaded = false;
+function fmtISO(d){const y=d.getFullYear(),m=String(d.getMonth()+1).padStart(2,"0"),dd=String(d.getDate()).padStart(2,"0");return y+"-"+m+"-"+dd;}
+let availPromise=null;
+async function loadTakenSlots(){try{const r=await fetch(WEBHOOK_URL+"?action=index",{method:"GET",redirect:"follow"});const j=await r.json();if(!j.ok)return;availSet.clear();takenSlots.clear();const idx=j.idx||{};for(const data of Object.keys(idx)){const o=idx[data].o||[];const p=idx[data].p||[];const ot=idx[data].ot||[];const pt=idx[data].pt||[];for(const h of o) availSet.add(data+"|"+h+"|online");for(const h of p) availSet.add(data+"|"+h+"|presencial");for(const h of ot){availSet.add(data+"|"+h+"|online");takenSlots.add(data+"|"+h);}for(const h of pt){availSet.add(data+"|"+h+"|presencial");takenSlots.add(data+"|"+h);}}availLoaded=true;}catch(e){console.warn("Falha ao carregar agenda",e);}}
+function preloadAvailability(){ if(!availPromise) availPromise=loadTakenSlots(); return availPromise; }
+async function ensureAvailability(){ await preloadAvailability(); }
+// Dispara o carregamento imediatamente
+if (typeof window!=='undefined') { setTimeout(preloadAvailability, 0); }
+
+
+// ── STEPS ─────────────────────────────────
+function goStep(n){
+  [1,2,3,4,'Sucesso'].forEach(s=>document.getElementById('step'+s).classList.add('hidden'));
+  document.getElementById('step'+n).classList.remove('hidden');
+  updateStepBar(n);
+  if(n===2){ const lbl=document.getElementById('calMonthLabel'); if(lbl && !availLoaded) lbl.textContent='Carregando agenda…'; ensureAvailability().then(()=>renderCal()); }
+  if(n===4) fillResumo();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function updateStepBar(n){
+  for(let i=1;i<=4;i++){
+    const c=document.getElementById('sc'+i);
+    const l=document.getElementById('sl'+i);
+    c.className='step-circle '+(i<n?'done':i===n?'active':'pending');
+    l.className='step-label'+(i===n?' active':'');
+    if(i<n) c.innerHTML='✓';
+    else c.innerHTML=i;
+  }
+}
+
+// ── STEP 1 ────────────────────────────────
+function selectMod(m){
+  state.modalidade=m;
+  state.dataSel=null; state.horaSel=null;
+  document.getElementById('mod-online').classList.toggle('selected',m==='online');
+  document.getElementById('mod-presencial').classList.toggle('selected',m==='presencial');
+  document.getElementById('endereco-box').classList.toggle('hidden',m!=='presencial');
+  document.getElementById('btn1').disabled=false;
+  const sub=m==='online'
+    ?'Segunda, terça e quinta-feira · 8h às 18h'
+    :'Quartas-feiras · Macaé, RJ · 10h às 17h';
+  document.getElementById('cal-sub').textContent=sub;
+}
+
+// ── CALENDAR ─────────────────────────────
+function changeMonth(d){
+  state.calMonth+=d;
+  if(state.calMonth>11){state.calMonth=0;state.calYear++;}
+  if(state.calMonth<0){state.calMonth=11;state.calYear--;}
+  renderCal();
+}
+
+function isAvailable(year,month,day){
+  const date=new Date(year,month,day);
+  const today=new Date(); today.setHours(0,0,0,0);
+  if(date<today) return false;
+  if(!state.modalidade) return false;
+  const iso=fmtISO(date);
+  if(availLoaded){
+    // procura ao menos um horário disponível para essa data+modalidade
+    for(const k of availSet){ if(k.startsWith(iso+"|") && k.endsWith("|"+state.modalidade)) return true; }
+    return false;
+  }
+  // fallback enquanto availability ainda não chegou
+  const dow=date.getDay();
+  const dias=state.modalidade==='online'?DIAS_ONLINE:DIAS_PRESENCIAL;
+  return dias.includes(dow);
+}
+
+function renderCal(){
+  const {calYear:y,calMonth:m}=state;
+  document.getElementById('calMonthLabel').textContent=MESES[m]+' '+y;
+  const grid=document.getElementById('calGrid');
+  grid.innerHTML='';
+  DIAS_SEMANA.forEach(d=>{
+    const el=document.createElement('div');
+    el.className='cal-day-name'; el.textContent=d;
+    grid.appendChild(el);
+  });
+  const firstDay=new Date(y,m,1).getDay();
+  const daysInMonth=new Date(y,m+1,0).getDate();
+  const today=new Date();
+  for(let i=0;i<firstDay;i++){
+    const el=document.createElement('div'); el.className='cal-day empty'; grid.appendChild(el);
+  }
+  for(let d=1;d<=daysInMonth;d++){
+    const el=document.createElement('div');
+    const avail=isAvailable(y,m,d);
+    const isToday=today.getDate()===d&&today.getMonth()===m&&today.getFullYear()===y;
+    const isSel=state.dataSel&&state.dataSel.getDate()===d&&state.dataSel.getMonth()===m&&state.dataSel.getFullYear()===y;
+    const isPast=new Date(y,m,d)<new Date(today.getFullYear(),today.getMonth(),today.getDate());
+    el.className='cal-day '+(isSel?'selected':isPast?'past':avail?'available':'unavailable')+(isToday&&!isSel?' today':'');
+    el.textContent=d;
+    if(avail&&!isPast) el.onclick=()=>selectDay(y,m,d);
+    grid.appendChild(el);
+  }
+}
+
+async function selectDay(y,m,d){
+  state.dataSel=new Date(y,m,d);
+  state.horaSel=null;
+  state.calYear=y; state.calMonth=m;
+  renderCal();
+  renderSlots();
+  document.getElementById('slotsCard').classList.remove('hidden');
+  document.getElementById('btn2').disabled=true;
+  try{ await loadTakenSlots(); renderSlots(); }catch(e){}
+}
+
+function renderSlots(){
+  const isoDay=fmtISO(state.dataSel);
+  let slots;
+  if(availLoaded){
+    const set=new Set();
+    for(const k of availSet){ const p=k.split("|"); if(p[0]===isoDay && p[2]===state.modalidade) set.add(p[1]); }
+    // remove horários já ocupados
+    for(const t of takenSlots){ const [d,h]=t.split("|"); /* keep taken in list */ }
+    slots=Array.from(set).sort();
+  } else {
+    slots=state.modalidade==='online'?SLOTS_ONLINE:SLOTS_PRESENCIAL;
+  }
+  const grid=document.getElementById('slotsGrid');
+  const dow=state.dataSel.getDay();
+  const dayName=DIAS_SEMANA_FULL[dow];
+  document.getElementById('slots-sub').textContent='Horários disponíveis — '+dayName;
+  grid.innerHTML='';
+  const iso=fmtISO(state.dataSel);
+  slots.forEach(h=>{
+    const el=document.createElement('div');
+    const taken=takenSlots.has(iso+'|'+h);
+    el.className='slot'+(taken?' taken':'')+(state.horaSel===h?' selected':'');
+    el.textContent=h;
+    if(!taken) el.onclick=()=>selectSlot(h,el);
+    grid.appendChild(el);
+  });
+}
+
+function selectSlot(h,el){
+  state.horaSel=h;
+  document.querySelectorAll('.slot').forEach(s=>s.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('btn2').disabled=false;
+}
+
+// ── STEP 3 ────────────────────────────────
+function checkStep3(){
+  const nome=document.getElementById('inp-nome').value.trim();
+  const email=document.getElementById('inp-email').value.trim();
+  const tel=document.getElementById('inp-tel').value.trim();
+  const orig=document.getElementById('inp-origem').value;
+  document.getElementById('btn3').disabled=!(nome&&email&&tel&&orig);
+}
+
+// ── STEP 4 ────────────────────────────────
+function fillResumo(){
+  const modLabel=state.modalidade==='online'?'Online 💻':'Presencial 🏥';
+  const dataFmt=state.dataSel.toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'long'});
+  document.getElementById('r-mod').textContent=modLabel;
+  document.getElementById('r-data').textContent=dataFmt;
+  document.getElementById('r-hora').textContent=state.horaSel+'h';
+  document.getElementById('r-nome').textContent=document.getElementById('inp-nome').value;
+  document.getElementById('r-end-row').classList.toggle('hidden',state.modalidade!=='presencial');
+}
+
+function selectPay(p){
+  state.payMethod=p;
+  document.getElementById('pay-pix').classList.toggle('selected',p==='pix');
+  document.getElementById('pay-cartao').classList.toggle('selected',p==='cartao');
+  document.getElementById('pix-area').classList.toggle('hidden',p!=='pix');
+  document.getElementById('cartao-area').classList.toggle('hidden',p!=='cartao');
+}
+
+function copyPix(){
+  navigator.clipboard.writeText('11963445745').then(()=>{
+    const btn=document.querySelector('.pix-copy');
+    btn.textContent='✅ Copiado!';
+    setTimeout(()=>btn.textContent='📋 Copiar chave PIX',2000);
+  });
+}
+
+async function confirmarPagamento(){
+  const consent=document.getElementById('chk-lgpd')&&document.getElementById('chk-lgpd').checked;
+  if(!consent){alert('Por favor, aceite a política de privacidade para continuar.');return;}
+  const nome=(document.getElementById('inp-nome')||{}).value||'';
+  const email=(document.getElementById('inp-email')||{}).value||'';
+  const tel=(document.getElementById('inp-tel')||{}).value||'';
+  if(!nome.trim()||!email.trim()||!tel.trim()){alert('Preencha nome, e-mail e telefone antes de confirmar.');return;}
+  const payload={data:fmtISO(state.dataSel),hora:state.horaSel,modalidade:state.modalidade,nome:nome.trim(),email:email.trim(),telefone:tel.trim(),consentimento:true};
+  const btnsConf=document.querySelectorAll('button.btn-main[onclick*="confirmarPagamento"]');
+  btnsConf.forEach(b=>{ b.dataset.origText=b.textContent; b.textContent='⏳ Enviando…'; b.disabled=true; });
+  try{
+    const r=await fetch(WEBHOOK_URL,{method:'POST',body:JSON.stringify(payload),redirect:'follow'});
+    const j=await r.json();
+    if(!j.ok){
+      if(j.reason==='slot_taken'){
+        alert('Esse horário acabou de ser reservado por outra pessoa. Escolha outro.');
+        await loadTakenSlots();
+        goStep(2);
+      } else if(j.reason==='missing_fields'){
+        alert('Alguns campos obrigatórios estão faltando.');
+      } else {
+        alert('Não foi possível confirmar. Tente novamente em instantes.');
+      }
+      btnsConf.forEach(b=>{ if(b.dataset.origText) b.textContent=b.dataset.origText; b.disabled=false; });
+      return;
+    }
+    const modLabel=state.modalidade==='online'?'Online 💻':'Presencial 🏠';
+    const dataFmt=state.dataSel.toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'long'});
+    document.getElementById('s-mod').textContent=modLabel;
+    document.getElementById('s-data').textContent=dataFmt;
+    document.getElementById('s-hora').textContent=state.horaSel+'h';
+    document.getElementById('s-end').classList.toggle('hidden',state.modalidade!=='presencial');
+    goStep('Sucesso');
+  } catch(e){
+    alert('Erro de conexão. Tente novamente.');
+    btns.forEach(b=>b.disabled=false);
+  }
+}
+
+// ── INIT ─────────────────────────────────
+loadTakenSlots();
+renderCal();
+setInterval(()=>{if(state.dataSel)loadTakenSlots().then(renderSlots);},30000);
+</script>
+</body>
+</html>
