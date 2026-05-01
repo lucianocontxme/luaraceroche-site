@@ -222,21 +222,7 @@
   <a class="back-link" href="/anamnese/login.html">← Voltar</a>
 </div>
 
-<script>
-  // Verifica se veio do login (deve ter email na sessão)
-  if (!sessionStorage.getItem('anamnese_email')) {
-    window.location.replace('/anamnese/login.html');
-  }
-
-  document.getElementById('check-lgpd').addEventListener('change', function() {
-    document.getElementById('btn-aceitar').disabled = !this.checked;
-  });
-
-  function aceitar() {
-    sessionStorage.setItem('anamnese_lgpd', '1');
-    window.location.href = '/anamnese/';
-  }
-</script>
+<script src="lgpd.js"></script>
 
 </body>
 </html>
