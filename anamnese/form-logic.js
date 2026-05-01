@@ -160,4 +160,6 @@ async function enviarFormulario() {
     }
   } catch (err) {
     showToast('Erro de conexao. Verifique sua internet e tente novamente.', 'error');
-    btn.disabled =
+    btn.disabled =false;
+  }
+}

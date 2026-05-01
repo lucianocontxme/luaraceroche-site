@@ -10,12 +10,8 @@ function showMsg(text, type) {
   msgEl.style.display = 'block';
 }
 
-function hideMsg() {
-  msgEl.style.display = 'none';
-}
-
 async function verificarEmail() {
-  const email = emailInput.value.trim().toLowerCase();
+  var email = emailInput.value.trim().toLowerCase();
 
   if (!email) {
     showMsg('Por favor, informe o seu e-mail.', 'error');
@@ -23,32 +19,32 @@ async function verificarEmail() {
     return;
   }
 
-  if (!email.includes('@') || !email.includes('.')) {
-    showMsg('Por favor, informe um e-mail válido.', 'error');
+  if (email.indexOf('@') === -1 || email.indexOf('.') === -1) {
+    showMsg('Por favor, informe um e-mail valido.', 'error');
     emailInput.focus();
     return;
   }
 
   btn.disabled = true;
-  showMsg('<span class="spinner"></span>Verificando acesso…', 'loading');
+  showMsg('<span class="spinner"></span>Verificando acesso...', 'loading');
 
   try {
-    const url = APPS_SCRIPT_URL + '?action=checkEmail&email=' + encodeURIComponent(email);
-    const resp = await fetch(url, { credentials: 'omit' });
-    const data = await resp.json();
+    var url = APPS_SCRIPT_URL + '?action=checkEmail&email=' + encodeURIComponent(email);
+    var resp = await fetch(url, { credentials: 'omit' });
+    var data = await resp.json();
 
     if (data.authorized) {
       sessionStorage.setItem('anamnese_email', email);
       sessionStorage.setItem('anamnese_nome', data.nome || '');
       sessionStorage.removeItem('anamnese_lgpd');
-      showMsg('✓ Acesso liberado! Redirecionando…', 'loading');
-      setTimeout(() => {
+      showMsg('Acesso liberado! Redirecionando...', 'loading');
+      setTimeout(function() {
         window.location.href = '/anamnese/lgpd.html';
       }, 800);
     } else {
       showMsg(
-        '<strong>E-mail não encontrado.</strong><br>' +
-        'Verifique se digitou corretamente ou entre em contato com a Luara para solicitar seu acesso.',
+        '<strong>E-mail nao encontrado.</strong><br>' +
+        'Verifique se digitou corretamente ou entre em contato com a Luara.',
         'error'
       );
       btn.disabled = false;
@@ -56,13 +52,16 @@ async function verificarEmail() {
     }
   } catch (err) {
     showMsg(
-      '<strong>Erro de conexão.</strong><br>' +
-      'Não foi possível verificar seu acesso. Por favor, tente novamente.',
+      '<strong>Erro de conexao.</strong><br>' +
+      'Nao foi possivel verificar seu acesso. Tente novamente.',
       'error'
     );
     btn.disabled = false;
   }
 }
 
-emailInput.addEventListener('keydown', e => {
-  if (e.key === 'Enter') verificarEm
+emailInput.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') verificarEmail();
+});
+
+btn.addEventListener('click', verificarEmail);

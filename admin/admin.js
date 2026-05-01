@@ -307,4 +307,43 @@ async function adicionarEmail() {
   try {
     const result = await api({ action: 'addEmail', email, nome });
     if (result.success) {
-      toast('âœ
+      toast('âœâœ“ ' + result.message);
+      document.getElementById('new-email').value = '';
+      document.getElementById('new-nome').value = '';
+      await carregarEmails();
+    } else {
+      toast('Erro: ' + result.error);
+    }
+  } catch {
+    toast('Erro de conexao.');
+  }
+}
+
+async function desativarEmail(email) {
+  if (!confirm('Desativar o acesso de ' + email + '?')) return;
+  try {
+    const result = await api({ action: 'removeEmail', email });
+    if (result.success) {
+      toast('Acesso desativado.');
+      await carregarEmails();
+    } else {
+      toast('Erro: ' + result.error);
+    }
+  } catch {
+    toast('Erro de conexao.');
+  }
+}
+
+async function reativarEmail(email, nome) {
+  try {
+    const result = await api({ action: 'addEmail', email, nome });
+    if (result.success) {
+      toast('Acesso reativado.');
+      await carregarEmails();
+    } else {
+      toast('Erro: ' + result.error);
+    }
+  } catch {
+    toast('Erro de conexao.');
+  }
+}
