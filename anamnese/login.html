@@ -285,7 +285,7 @@
 
     try {
       const url = APPS_SCRIPT_URL + '?action=checkEmail&email=' + encodeURIComponent(email);
-      const resp = await fetch(url);
+      const resp = await fetch(url, { credentials: 'omit' });
       const data = await resp.json();
 
       if (data.authorized) {
@@ -309,4 +309,4 @@
     } catch (err) {
       showMsg(
         '<strong>Erro de conexão.</strong><br>' +
-        'Não foi possível verificar seu acesso. Por favor, tente nova
+        'Não foi possível verificar seu aces

@@ -796,7 +796,7 @@
   // ---- API call ----
   async function api(params) {
     const url = APPS_SCRIPT_URL + '?' + new URLSearchParams({ ...params, token: ADMIN_TOKEN });
-    const resp = await fetch(url);
+    const resp = await fetch(url, { credentials: 'omit' });
     return resp.json();
   }
 
@@ -1054,4 +1054,4 @@
         toast('✓ Acesso reativado.');
         await carregarEmails();
       } else {
-        toast('Erro: ' + result.er
+        t
